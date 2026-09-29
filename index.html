@@ -270,6 +270,39 @@ h1,h2,h3,h4,p{ margin:0; }
 .footer-links a{ font-size:0.95rem; color:var(--ink); transition:color .25s; }
 .footer-links a:hover{ color: var(--accent); }
 
+/* ---------- TABLET RESPONSIVE ---------- */
+@media (min-width: 721px) and (max-width: 1024px){
+  :root{ --edge: 28px; }
+  .site-nav{ padding: 16px var(--edge); }
+  .nav-links{ gap: 14px; min-width:0; }
+  .nav-links a{ white-space:nowrap; }
+  .nav-links .btn-glass{ padding:10px 14px; }
+
+  .hero{ min-height: auto; padding-top: 110px; padding-bottom: 80px; }
+  .hero-inner{ width:100%; max-width: 900px; grid-template-columns: 1fr 0.82fr; gap: 30px; }
+  .hero-headline{ font-size: clamp(3rem, 6vw, 4.4rem); overflow-wrap:anywhere; }
+  .hero-sub{ max-width: 560px; }
+  .hero-illustration{ max-width: 360px; }
+  .hero-cta-row{ flex-wrap:wrap; }
+
+  .section{ padding-left:var(--edge); padding-right:var(--edge); }
+  .work-grid{ gap:16px; }
+  .work-card{ min-width:0; }
+  .work-card .work-diagram,
+  .work-card.featured .work-diagram,
+  .work-card.featured .work-diagram.diagram-tall{ width:52%; max-width:300px; }
+  .work-card h3,.work-card.featured h3{ max-width:100%; overflow-wrap:anywhere; }
+
+  .about-grid{ gap:38px; }
+  .skills-grid{ grid-template-columns:1fr 1fr; gap:16px; }
+  .skill-card{ min-width:0; }
+  .pill{ max-width:100%; white-space:normal; }
+
+  #experience .exp-timeline{ padding-left:34px; }
+  .contact-method-card{ min-width:0; }
+  .footer-top,.footer-bottom{ gap:24px; }
+}
+
 @media (max-width: 720px){
   :root{ --edge: 16px; }
   .site-nav{ padding: 14px var(--edge); min-height: 64px; }
