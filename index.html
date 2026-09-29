@@ -271,9 +271,71 @@ h1,h2,h3,h4,p{ margin:0; }
 .footer-links a:hover{ color: var(--accent); }
 
 @media (max-width: 720px){
-  .nav-links{ gap:16px; }
+  :root{ --edge: 16px; }
+  .site-nav{ padding: 14px var(--edge); min-height: 64px; }
+  .nav-name{ font-size: .95rem; white-space: nowrap; }
+  .nav-links{ gap: 8px; min-width: 0; }
   .nav-links a:not(.btn-glass){ display:none; }
+  .nav-links .btn-glass{ display:none; }
+  .theme-toggle{ width:36px; height:36px; }
   .cursor-glow{ display:none; }
+
+  .hero{ min-height: auto; padding-top: 92px; padding-bottom: 88px; }
+  .hero-inner{ width:100%; max-width:none; gap: 34px; }
+  .hero-text{ width:100%; min-width:0; }
+  .hero-tag{ max-width:100%; padding:7px 13px; font-size:.76rem; }
+  .hero-headline{ max-width: 100%; font-size: clamp(2.15rem, 10vw, 3.1rem); line-height:1.04; overflow-wrap:anywhere; }
+  .hero-sub{ max-width:100%; font-size:1rem; }
+  .hero-cta-row{ width:100%; gap:10px; }
+  .hero-cta-row .btn{ flex:1 1 0; justify-content:center; min-width:0; padding:13px 16px; }
+  .hero-meta{ width:100%; gap:18px 28px; justify-content:center; }
+  .hero-illustration{ width:min(82vw, 300px); max-width:300px; }
+  .scroll-cue{ bottom:18px; }
+
+  .section{ padding-top:56px; padding-bottom:56px; }
+  .sec-head{ margin-bottom:42px; }
+  .display-2{ font-size:clamp(1.8rem, 8vw, 2.5rem); }
+
+  .work-grid{ gap:14px; }
+  .work-card{ padding:22px 18px; border-radius:18px; min-width:0; }
+  .work-card .work-diagram,
+  .work-card.featured .work-diagram,
+  .work-card.featured .work-diagram.diagram-tall{ width:min(72%, 250px); max-width:100%; }
+  .work-card h3,
+  .work-card.featured h3{ max-width:100%; font-size:1.45rem; overflow-wrap:anywhere; }
+  .work-card .tag-row,
+  .work-card.featured .tag-row{ max-width:100%; }
+  .work-card p,.work-card .w-bullets{ max-width:100%; }
+
+  .about-grid{ gap:34px; }
+  .about-stats-vert{ grid-template-columns:1fr 1fr; }
+  .about-stat-card{ min-width:0; padding:13px; }
+  .about-stat-card .num,.about-stat-card .cap{ overflow-wrap:anywhere; }
+
+  .skills-grid{ grid-template-columns:1fr; }
+  .skill-card{ min-width:0; padding:22px 18px; }
+  .pill{ max-width:100%; white-space:normal; text-align:left; }
+
+  #experience .exp-timeline{ padding-left:28px; --timeline-rail-x:8px; }
+  #experience .exp-dot{ left:-26px; }
+  #experience .exp-role{ font-size:1.15rem; }
+  #experience .exp-company,#experience .exp-dates{ overflow-wrap:anywhere; }
+
+  .contact-method-card{ min-width:0; padding:22px 14px; }
+  .contact-method-card .cm-value{ max-width:100%; overflow-wrap:anywhere; }
+  .footer-top,.footer-bottom{ gap:18px; }
+  .footer-top{ margin-top:48px !important; }
+}
+
+@media (max-width: 380px){
+  .site-nav{ padding-left:12px; padding-right:12px; }
+  .nav-name{ font-size:.88rem; }
+  .hero{ padding-top:86px; }
+  .hero-headline{ font-size:2.05rem; }
+  .hero-cta-row{ flex-direction:column; }
+  .hero-cta-row .btn{ width:100%; }
+  .about-stats-vert{ grid-template-columns:1fr; }
+  .tool-grid{ gap:10px; }
 }
 
 /* ---------- theme-aware diagram strokes/fills ---------- */
