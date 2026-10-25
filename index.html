@@ -1,1793 +1,215 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sanmathi Ramesh — UX/UI Designer</title>
-<meta name="description" content="Sanmathi Ramesh is a UX/UI Designer working across enterprise SaaS, fintech, logistics, and healthcare — turning complex, data-heavy systems into workflows people can use.">
-<style>
-/* ============================================================
-   SANMATHI RAMESH — UX/UI PORTFOLIO
-   Design concept: "Dark Premium Cinematic"
-   Deep graphite canvas, warm gold + violet accents, glass panels,
-   cursor-reactive glow, magnetic buttons. Premium tech-product feel.
-   ============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap');
-
-:root{
-  --bg:        #0D0E12;
-  --bg-soft:   #15171D;
-  --bg-elev:   #1B1E26;
-  --ink:       #F4F2EC;
-  --dim:       #9A9AA4;
-  --dim-2:     #6E6E78;
-  --accent:    #D8A44E;
-  --accent-2:  #F0C878;
-  --violet:    #7C6CF6;
-  --violet-2:  #9F8CFF;
-  --line:      rgba(244,242,236,0.10);
-  --line-strong: rgba(244,242,236,0.20);
-  --glow-alpha: 0.16;
-  --orb-alpha: 0.14;
-  --btn-ink: #191204;
-  --card-bg: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
-  --card-shadow: none;
-  --nav-bg-scrolled: rgba(13,14,18,0.72);
-  --outcome-bg: linear-gradient(160deg, rgba(216,164,78,0.08), rgba(124,108,246,0.05));
-
-  --serif: 'Bricolage Grotesque', 'Inter', sans-serif;
-  --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  --edge: clamp(20px, 5vw, 72px);
-  --max: 1360px;
-  --ease: cubic-bezier(.22,.68,.18,1);
-
-  color-scheme: dark;
-  transition: background .4s ease, color .4s ease;
-}
-
-:root[data-theme="light"]{
-  --bg:        #FAFAF7;
-  --bg-soft:   #F1EFE9;
-  --bg-elev:   #FFFFFF;
-  --ink:       #17161C;
-  --dim:       #6B6A74;
-  --dim-2:     #96959E;
-  --accent:    #B87F26;
-  --accent-2:  #D8A44E;
-  --violet:    #6D5EF8;
-  --violet-2:  #5B4FE0;
-  --line:      rgba(23,22,28,0.10);
-  --line-strong: rgba(23,22,28,0.18);
-  --glow-alpha: 0.09;
-  --orb-alpha: 0.07;
-  --btn-ink: #191204;
-  --card-bg: #FFFFFF;
-  --card-shadow: 0 20px 40px rgba(23,22,28,0.07);
-  --nav-bg-scrolled: rgba(250,250,247,0.78);
-  --outcome-bg: linear-gradient(160deg, rgba(184,127,38,0.08), rgba(109,94,248,0.06));
-  color-scheme: light;
-}
-
-*,*::before,*::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior: auto; }
-  *,*::before,*::after{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-}
-
-body{
-  margin:0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  transition: background .4s ease, color .4s ease;
-}
-
-img{ max-width:100%; display:block; }
-a{ color: inherit; text-decoration:none; }
-button{ font-family: inherit; background:none; border:none; cursor:pointer; color:inherit; }
-ul{ margin:0; padding:0; list-style:none; }
-h1,h2,h3,h4,p{ margin:0; }
-::selection{ background: var(--accent); color: #191204; }
-:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
-
-/* ---------- cursor glow (desktop only) ---------- */
-.cursor-glow{
-  position:fixed; width:640px; height:640px; border-radius:50%;
-  background: radial-gradient(circle, rgba(124,108,246,var(--glow-alpha)), transparent 70%);
-  pointer-events:none; z-index:2; filter: blur(30px);
-  transform:translate(-50%,-50%);
-  opacity:0; transition: opacity .4s ease;
-  will-change: left, top;
-}
-.cursor-glow.is-active{ opacity:1; }
-
-/* ---------- type scale ---------- */
-.display-1{
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(2.6rem, 6vw, 5.4rem);
-  line-height: 1.03;
-  letter-spacing: -0.015em;
-}
-.display-2{
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(2rem, 4.2vw, 3.4rem);
-  line-height: 1.08;
-  letter-spacing: -0.01em;
-}
-.display-3{
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  line-height: 1.2;
-}
-.label{
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--dim);
-}
-.body-lg{
-  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-  line-height: 1.6;
-  color: var(--dim);
-  max-width: 60ch;
-}
-.body{
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--dim);
-  max-width: 58ch;
-}
-.grad-text{
-  background: linear-gradient(100deg, var(--accent), var(--violet-2));
-  -webkit-background-clip: text; background-clip:text; color:transparent;
-}
-.accent-italic{
-  font-style: italic;
-  color: var(--accent);
-}
-
-/* ---------- layout helpers ---------- */
-.wrap{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding-left: var(--edge);
-  padding-right: var(--edge);
-  position:relative;
-}
-.section{ position:relative; padding-top: clamp(64px,9vw,120px); padding-bottom: clamp(64px,9vw,120px); z-index:1; }
-.section.tight{ padding-top: clamp(36px,5vw,64px); padding-bottom: clamp(36px,5vw,64px); }
-.rule{ height:1px; background: var(--line); border:none; margin:0; }
-
-/* ---------- nav ---------- */
-.site-nav{
-  position: fixed; top:0; left:0; right:0; z-index: 100;
-  display:flex; align-items:center; justify-content:space-between;
-  padding: 22px var(--edge);
-  transition: transform .5s var(--ease), background .4s ease, border-color .4s ease, backdrop-filter .4s ease;
-  border-bottom: 1px solid transparent;
-}
-.site-nav.is-scrolled{
-  background: var(--nav-bg-scrolled);
-  backdrop-filter: blur(14px);
-  border-bottom-color: var(--line);
-}
-.site-nav.nav-hidden{ transform: translateY(-100%); }
-.nav-name{
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-.nav-links{ display:flex; gap: clamp(20px,3vw,36px); align-items:center; }
-.nav-links a:not(.btn-glass){
-  font-size: 0.9rem; color: var(--dim);
-  transition: color .25s ease;
-}
-.nav-links a:not(.btn-glass):hover{ color: var(--ink); }
-.btn-glass{
-  padding: 10px 22px; border-radius: 99px;
-  background: rgba(244,242,236,0.06);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(8px);
-  font-size: 0.88rem; font-weight: 500;
-  transition: background .3s, border-color .3s, transform .25s var(--ease);
-  display:inline-block;
-}
-.btn-glass:hover{ background: rgba(244,242,236,0.12); border-color: var(--line-strong); }
-
-/* ---------- buttons ---------- */
-.btn{
-  display:inline-flex; align-items:center; gap:10px;
-  font-size: 0.95rem; font-weight:600;
-  padding: 15px 30px;
-  border-radius: 99px;
-  position:relative;
-  transition: transform .25s var(--ease), box-shadow .3s ease;
-}
-.btn.primary{
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: var(--btn-ink);
-  box-shadow: 0 16px 32px rgba(216,164,78,0.22);
-}
-.btn.primary:hover{ transform: scale(1.035); box-shadow: 0 20px 40px rgba(216,164,78,0.3); }
-.btn.ghost{
-  background: transparent; color: var(--ink);
-  border: 1px solid var(--line-strong);
-}
-.btn.ghost:hover{ background: rgba(244,242,236,0.06); }
-.btn-icon{ font-size: 1.05em; line-height:1; display:inline-block; }
-
-/* ---------- scroll progress bar ---------- */
-.scroll-progress{
-  position:fixed; top:0; left:0; height:3px; width:0%;
-  background: linear-gradient(90deg, var(--accent), var(--violet-2));
-  z-index: 200;
-  transition: width .1s linear;
-}
-
-/* ---------- reveal-on-scroll ---------- */
-.reveal{
-  opacity:0; transform: translateY(26px);
-  transition: opacity .8s var(--ease), transform .8s var(--ease);
-}
-.reveal.is-visible{ opacity:1; transform:none; }
-
-/* ---------- glass panel base ---------- */
-.glass{
-  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
-  border: 1px solid var(--line);
-  backdrop-filter: blur(6px);
-}
-
-/* ---------- footer ---------- */
-.site-footer{
-  background: var(--bg-soft);
-  border-top: 1px solid var(--line);
-  padding: clamp(60px,8vw,110px) var(--edge) 40px;
-}
-.footer-top{
-  display:flex; justify-content:space-between; align-items:flex-end;
-  flex-wrap:wrap; gap:40px;
-  padding-bottom: 48px;
-}
-.footer-bottom{
-  display:flex; justify-content:space-between; align-items:center;
-  padding-top:24px; border-top:1px solid var(--line);
-  font-size:0.82rem; color: var(--dim-2);
-  flex-wrap:wrap; gap:12px;
-}
-.footer-links{ display:flex; gap:28px; flex-wrap:wrap; }
-.footer-links a{ font-size:0.95rem; color:var(--ink); transition:color .25s; }
-.footer-links a:hover{ color: var(--accent); }
-
-/* ---------- TABLET RESPONSIVE ---------- */
-@media (min-width: 721px) and (max-width: 1024px){
-  :root{ --edge: 28px; }
-  .site-nav{ padding: 16px var(--edge); }
-  .nav-links{ gap: 14px; min-width:0; }
-  .nav-links a{ white-space:nowrap; }
-  .nav-links .btn-glass{ padding:10px 14px; }
-
-  .hero{ min-height: auto; padding-top: 110px; padding-bottom: 80px; }
-  .hero-inner{ width:100%; max-width: 900px; grid-template-columns: 1fr 0.82fr; gap: 30px; }
-  .hero-headline{ font-size: clamp(3rem, 6vw, 4.4rem); overflow-wrap:anywhere; }
-  .hero-sub{ max-width: 560px; }
-  .hero-illustration{ max-width: 360px; }
-  .hero-cta-row{ flex-wrap:wrap; }
-
-  .section{ padding-left:var(--edge); padding-right:var(--edge); }
-  .work-grid{ gap:16px; }
-  .work-card{ min-width:0; }
-  .work-card .work-diagram,
-  .work-card.featured .work-diagram,
-  .work-card.featured .work-diagram.diagram-tall{ width:52%; max-width:300px; }
-  .work-card h3,.work-card.featured h3{ max-width:100%; overflow-wrap:anywhere; }
-
-  .about-grid{ gap:38px; }
-  .skills-grid{ grid-template-columns:1fr 1fr; gap:16px; }
-  .skill-card{ min-width:0; }
-  .pill{ max-width:100%; white-space:normal; }
-
-  #experience .exp-timeline{ padding-left:34px; }
-  .contact-method-card{ min-width:0; }
-  .footer-top,.footer-bottom{ gap:24px; }
-}
-
-@media (max-width: 720px){
-  :root{ --edge: 16px; }
-  .site-nav{ padding: 14px var(--edge); min-height: 64px; }
-  .nav-name{ font-size: .95rem; white-space: nowrap; }
-  .nav-links{ gap: 8px; min-width: 0; }
-  .nav-links a:not(.btn-glass){ display:none; }
-  .nav-links .btn-glass{ display:none; }
-  .theme-toggle{ width:36px; height:36px; }
-  .cursor-glow{ display:none; }
-
-  .hero{ min-height: auto; padding-top: 92px; padding-bottom: 88px; }
-  .hero-inner{ width:100%; max-width:none; gap: 34px; }
-  .hero-text{ width:100%; min-width:0; }
-  .hero-tag{ max-width:100%; padding:7px 13px; font-size:.76rem; }
-  .hero-headline{ max-width: 100%; font-size: clamp(2.15rem, 10vw, 3.1rem); line-height:1.04; overflow-wrap:anywhere; }
-  .hero-sub{ max-width:100%; font-size:1rem; }
-  .hero-cta-row{ width:100%; gap:10px; }
-  .hero-cta-row .btn{ flex:1 1 0; justify-content:center; min-width:0; padding:13px 16px; }
-  .hero-meta{ width:100%; gap:18px 28px; justify-content:center; }
-  .hero-illustration{ width:min(82vw, 300px); max-width:300px; }
-  .scroll-cue{ bottom:18px; }
-
-  .section{ padding-top:56px; padding-bottom:56px; }
-  .sec-head{ margin-bottom:42px; }
-  .display-2{ font-size:clamp(1.8rem, 8vw, 2.5rem); }
-
-  .work-grid{ gap:14px; }
-  .work-card{ padding:22px 18px; border-radius:18px; min-width:0; }
-  .work-card .work-diagram,
-  .work-card.featured .work-diagram,
-  .work-card.featured .work-diagram.diagram-tall{ width:min(72%, 250px); max-width:100%; }
-  .work-card h3,
-  .work-card.featured h3{ max-width:100%; font-size:1.45rem; overflow-wrap:anywhere; }
-  .work-card .tag-row,
-  .work-card.featured .tag-row{ max-width:100%; }
-  .work-card p,.work-card .w-bullets{ max-width:100%; }
-
-  .about-grid{ gap:34px; }
-  .about-stats-vert{ grid-template-columns:1fr 1fr; }
-  .about-stat-card{ min-width:0; padding:13px; }
-  .about-stat-card .num,.about-stat-card .cap{ overflow-wrap:anywhere; }
-
-  .skills-grid{ grid-template-columns:1fr; }
-  .skill-card{ min-width:0; padding:22px 18px; }
-  .pill{ max-width:100%; white-space:normal; text-align:left; }
-
-  #experience .exp-timeline{ padding-left:28px; --timeline-rail-x:8px; }
-  #experience .exp-dot{ left:-26px; }
-  #experience .exp-role{ font-size:1.15rem; }
-  #experience .exp-company,#experience .exp-dates{ overflow-wrap:anywhere; }
-
-  .contact-method-card{ min-width:0; padding:22px 14px; }
-  .contact-method-card .cm-value{ max-width:100%; overflow-wrap:anywhere; }
-  .footer-top,.footer-bottom{ gap:18px; }
-  .footer-top{ margin-top:48px !important; }
-}
-
-@media (max-width: 380px){
-  .site-nav{ padding-left:12px; padding-right:12px; }
-  .nav-name{ font-size:.88rem; }
-  .hero{ padding-top:86px; }
-  .hero-headline{ font-size:2.05rem; }
-  .hero-cta-row{ flex-direction:column; }
-  .hero-cta-row .btn{ width:100%; }
-  .about-stats-vert{ grid-template-columns:1fr; }
-  .tool-grid{ gap:10px; }
-}
-
-/* ---------- theme-aware diagram strokes/fills ---------- */
-.d-line{ stroke: var(--ink); fill:none; }
-.d-line-soft{ stroke: var(--ink); fill:none; opacity:0.3; }
-.d-node{ fill: var(--ink); opacity:0.6; }
-.d-accent{ fill: var(--accent); }
-.d-accent-line{ stroke: var(--accent); fill:none; }
-.d-violet-line{ stroke: var(--violet-2); fill:none; }
-.d-violet{ fill: var(--violet-2); }
-.d-fill-1{ fill: var(--ink); opacity:0.75; }
-.d-fill-2{ fill: var(--ink); opacity:0.45; }
-.d-fill-3{ fill: var(--ink); opacity:0.2; }
-
-/* ---------- theme toggle ---------- */
-.theme-toggle{
-  width: 38px; height:38px; border-radius:50%;
-  display:inline-flex; align-items:center; justify-content:center;
-  border: 1px solid var(--line); background: rgba(244,242,236,0.04);
-  transition: background .3s, border-color .3s, transform .25s var(--ease);
-  flex-shrink:0;
-}
-.theme-toggle:hover{ background: rgba(244,242,236,0.1); border-color: var(--line-strong); }
-.theme-toggle svg{ width:17px; height:17px; stroke: var(--ink); fill:none; }
-.theme-toggle .icon-moon{ display:block; }
-.theme-toggle .icon-sun{ display:none; }
-:root[data-theme="light"] .theme-toggle .icon-moon{ display:none; }
-:root[data-theme="light"] .theme-toggle .icon-sun{ display:block; }
-
-
-/* ============================================================
-   HOMEPAGE SECTIONS — Dark Premium Cinematic
-   ============================================================ */
-
-/* ---------- HERO ---------- */
-.hero{
-  position:relative;
-  min-height: 100svh;
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  padding-top: 100px; padding-bottom: 40px;
-  overflow:hidden;
-}
-.hero-bg-orb{
-  position:absolute; top:-200px; left:50%; transform:translateX(-50%);
-  width:900px; height:900px; border-radius:50%;
-  background: radial-gradient(circle, rgba(124,108,246,var(--orb-alpha)), transparent 65%);
-  pointer-events:none; z-index:0;
-}
-.hero-inner{
-  position:relative; z-index:1; max-width: 1160px;
-  display:grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(20px,4vw,60px);
-  align-items:center; text-align:left;
-}
-.hero-illustration{
-  justify-self:center; width:100%; max-width:460px;
-  opacity:0; animation: heroIllustrationIn 1.1s .3s var(--ease) forwards;
-}
-@keyframes heroIllustrationIn{ from{ opacity:0; transform: scale(0.92); } to{ opacity:1; transform:scale(1); } }
-.hero-float-slow{
-  transform-box: fill-box; transform-origin: center;
-  animation: heroFloat 6s ease-in-out infinite;
-}
-@keyframes heroFloat{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-8px); } }
-.hero-float-fast{
-  transform-box: fill-box; transform-origin: center;
-  animation: heroFloatFast 5s ease-in-out infinite;
-}
-@keyframes heroFloatFast{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-12px); } }
-.hero-chip-float-1{
-  transform-box: fill-box; transform-origin: center;
-  animation: heroChipFloat 4.5s ease-in-out infinite;
-}
-@keyframes heroChipFloat{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
-.hero-cursor{ transform-box: fill-box; transform-origin: center; animation: cursorDrift 5s ease-in-out infinite; }
-@keyframes cursorDrift{ 0%,100%{ transform: translate(0,0); } 50%{ transform: translate(-4px,5px); } }
-.hero-pulse{ animation: pulseRing 2.2s ease-out infinite; transform-box: fill-box; transform-origin:center; }
-@keyframes pulseRing{
-  0%{ transform: scale(0.7); opacity:1; }
-  70%{ transform: scale(1.5); opacity:0; }
-  100%{ transform: scale(1.5); opacity:0; }
-}
-@media (prefers-reduced-motion: reduce){
-  .hero-float-slow, .hero-float-fast, .hero-chip-float-1, .hero-cursor, .hero-pulse{ animation:none; }
-}
-.hero-text{ text-align:left; }
-.hero-tag{
-  display:inline-flex; align-items:center; gap:10px;
-  font-size:0.85rem; color:var(--dim);
-  border:1px solid var(--line); padding:8px 18px; border-radius:99px;
-  background: rgba(244,242,236,0.03);
-  margin-bottom: 32px;
-}
-.hero-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent); }
-.hero-headline{ max-width: 19ch; font-size: clamp(2.3rem, 4.6vw, 4.4rem); }
-.hero-sub{
-  margin: 20px 0 0;
-  max-width: 46ch;
-}
-.hero-cta-row{
-  display:flex; align-items:center; gap: 18px; flex-wrap:wrap;
-  margin-top: 32px;
-}
-.hero-meta{
-  display:flex; gap: clamp(28px,4vw,52px); flex-wrap:wrap;
-  margin-top: 34px;
-}
-.hero-meta dt{ font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase; color: var(--dim); margin-bottom:8px; }
-.hero-meta dd{ margin:0; font-size:1rem; font-weight:600; color: var(--ink); }
-.hero-stats{
-  margin-top: 80px;
-  display:flex; gap: clamp(32px,6vw,72px); justify-content:center; flex-wrap:wrap;
-  padding-top: 32px;
-  border-top: 1px solid var(--line);
-  position:relative; z-index:1;
-}
-.about-stats{
-  margin-top: 64px;
-}
-@media (max-width: 900px){
-  .hero-inner{ grid-template-columns: 1fr; text-align:center; }
-  .hero-text{ text-align:center; }
-  .hero-headline{ max-width: 14ch; margin:0 auto; }
-  .hero-sub{ margin-left:auto; margin-right:auto; }
-  .hero-cta-row{ justify-content:center; }
-  .hero-illustration{ max-width:320px; }
-}
-.hero-stat .num{ font-family: var(--serif); font-size:1.6rem; font-weight:600; display:block; }
-.hero-stat .cap{ font-size:0.82rem; color: var(--dim); margin-top:6px; display:block; }
-
-.scroll-cue{
-  position:absolute; bottom: 34px; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  font-size:0.75rem; color: var(--dim);
-  z-index:1;
-}
-.scroll-cue .line{
-  width:1px; height: 34px; background: var(--line-strong);
-  position:relative; overflow:hidden;
-}
-.scroll-cue .line::after{
-  content:''; position:absolute; left:0; top:-100%; width:100%; height:100%;
-  background: var(--accent);
-  animation: scrollcue 2.2s var(--ease) infinite;
-}
-@keyframes scrollcue{ 0%{ top:-100%; } 60%{ top:100%; } 100%{ top:100%; } }
-
-/* ---------- SECTION HEADERS ---------- */
-.sec-head{
-  text-align:center;
-  max-width: 640px;
-  margin: 0 auto clamp(52px,7vw,88px);
-}
-.sec-head .label{ color: var(--accent); }
-.sec-head h2{ margin-top: 14px; }
-.sec-head p{ margin: 18px auto 0; }
-
-/* ---------- SELECTED WORK — bento grid ---------- */
-.work-grid{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 22px;
-}
-.work-card{
-  grid-column: span 3;
-  border-radius: 24px;
-  padding: clamp(28px,3vw,40px);
-  position:relative; overflow:hidden;
-  transition: transform .45s var(--ease), border-color .4s ease, box-shadow .4s ease;
-  display:flex; flex-direction:column;
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(6px);
-}
-.work-card.featured{ grid-column: span 6; }
-.work-card::before{
-  content:''; position:absolute; inset:0; opacity:0; pointer-events:none;
-  background: radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(216,164,78,0.14), transparent 60%);
-  transition: opacity .4s;
-}
-.work-card:hover::before{ opacity:1; }
-.work-card:hover{ transform: translateY(-6px); border-color: rgba(216,164,78,0.35); }
-
-.work-card .tag-row{
-  display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;
-  max-width: 58%; position:relative; z-index:1;
-}
-.work-card.featured .tag-row{ max-width:54%; }
-.work-card .tag-row span{
-  font-size:0.75rem; padding:5px 12px; border-radius:99px;
-  border:1px solid var(--line); color: var(--dim);
-  transition: border-color .25s ease, color .25s ease;
-}
-.work-card:hover .tag-row span{ border-color: rgba(216,164,78,0.3); color: var(--ink); }
-.work-card .w-index{ font-size:0.8rem; color: var(--dim-2); margin-bottom:auto; }
-.work-card h3{
-  font-family: var(--serif); font-weight:600;
-  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-  margin: 0 0 20px;
-  max-width: 58%; position:relative; z-index:1;
-  transition: color .3s ease;
-}
-.work-card.featured h3{ font-size: clamp(1.6rem,3vw,2.3rem); max-width:54%; }
-.work-card:hover h3{ color: var(--accent-2); }
-.work-card p{ font-size:0.95rem; color: var(--dim); line-height:1.6; margin:0; max-width:52ch; }
-.work-card .w-bullets{
-  list-style:none; margin:0; padding:0; max-width:60ch;
-  display:flex; flex-direction:column; gap:10px;
-  position:relative; z-index:1;
-}
-.work-card .w-bullets li{
-  position:relative; padding-left:16px;
-  font-size:0.88rem; color: var(--dim); line-height:1.55;
-}
-.work-card .w-bullets li::before{
-  content:''; position:absolute; left:0; top:8px; width:6px; height:1px; background: var(--accent);
-}
-.work-card .w-link{
-  margin-top: 22px; display:inline-flex; align-items:center; gap:8px;
-  font-size:0.88rem; font-weight:600; color: var(--ink);
-  position:relative; z-index:1;
-}
-.work-card .w-link .arrow{ transition: transform .3s var(--ease); }
-.work-card:hover .w-link .arrow{ transform: translateX(4px); }
-
-.work-diagram{
-  position:absolute; right: clamp(24px,3vw,40px); top: clamp(24px,3vw,36px);
-  width:34%;
-  opacity:0.92;
-  pointer-events:none;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.18));
-  transition: transform .45s var(--ease), opacity .4s ease;
-}
-.work-card:hover .work-diagram{ transform: translateY(-4px); opacity:1; }
-.work-card.featured .work-diagram{ width:28%; }
-.work-diagram.diagram-tall{ width:22%; }
-.work-card.featured .work-diagram.diagram-tall{ width:19%; }
-
-@media (max-width: 900px){
-  .work-grid{ grid-template-columns: 1fr; }
-  .work-card, .work-card.featured{ grid-column: span 1; }
-  .work-card .tag-row,
-  .work-card h3{ max-width:100%; }
-  .work-card .work-diagram{
-    position:static; display:block; order:-1;
-    width:56%; margin:0 auto 22px;
-    right:auto; top:auto; left:auto; transform:none;
-  }
-  /* Mobile override: featured desktop width (28%) must not override the shared mobile width. */
-  .work-card.featured .work-diagram,
-  .work-card.featured .work-diagram.diagram-tall{
-    width:56%;
-  }
-  .work-card:hover .work-diagram{ transform: translateY(-4px); }
-}
-
-/* ---------- ABOUT ---------- */
-.about-grid{
-  display:grid; grid-template-columns: 5fr 7fr; gap: clamp(30px,6vw,80px);
-  align-items:stretch;
-}
-.about-grid > div:first-child{ display:flex; flex-direction:column; }
-.about-copy p{ margin-bottom: 22px; }
-.about-copy p:last-child{ margin-bottom:0; }
-
-.about-stats-vert{
-  margin-top: 24px;
-  display:grid; grid-template-columns: 1fr 1fr; gap: 10px;
-}
-.about-stat-card{
-  padding: 14px 16px;
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--card-shadow);
-  transition: transform .3s var(--ease), border-color .3s ease;
-  position:relative; overflow:hidden;
-}
-.about-stat-card::before{
-  content:''; position:absolute; top:-30px; right:-30px; width:90px; height:90px;
-  border-radius:50%;
-  background: radial-gradient(circle, rgba(216,164,78,0.16), transparent 70%);
-  opacity:0; transition: opacity .35s ease;
-}
-.about-stat-card:hover{ transform: translateY(-3px); border-color: rgba(216,164,78,0.3); }
-.about-stat-card:hover::before{ opacity:1; }
-.stat-icon{
-  width:26px; height:26px; border-radius:8px;
-  display:flex; align-items:center; justify-content:center;
-  background: rgba(216,164,78,0.12); color: var(--accent);
-  margin-bottom:8px;
-  position:relative; z-index:1;
-}
-.stat-icon svg{ width:14px; height:14px; }
-.about-stat-card .num{
-  font-family: var(--serif); font-size: 1.05rem; font-weight:700; display:block;
-  color: var(--ink);
-  position:relative; z-index:1;
-}
-.about-stat-card .cap{
-  font-size: 0.74rem; color: var(--dim); margin-top:3px; display:block;
-  position:relative; z-index:1; line-height:1.3;
-}
-
-@media (max-width: 860px){
-  .about-grid{ grid-template-columns: 1fr; }
-}
-
-/* ---------- EXPERIENCE — TIMELINE ---------- */
-.exp-timeline{
-  position:relative;
-  padding-left: clamp(28px, 4vw, 40px);
-}
-.exp-timeline::before{
-  content:''; position:absolute; left:5px; top:8px; bottom:8px; width:1px;
-  background: var(--line);
-  transform: scaleY(0); transform-origin: top;
-  transition: transform 1.1s var(--ease);
-}
-.exp-timeline.is-visible::before{ transform: scaleY(1); }
-.exp-timeline-item{
-  position:relative;
-  padding-bottom: clamp(36px, 5vw, 52px);
-}
-.exp-timeline-item:last-child{ padding-bottom:0; }
-.exp-dot{
-  position:absolute; left: clamp(-33px,-4vw,-29px); top:6px;
-  width:13px; height:13px; border-radius:50%;
-  background: var(--bg-soft); border:2px solid var(--accent);
-  opacity:0; transform: scale(0.4);
-  transition: opacity .5s ease, transform .5s var(--ease);
-}
-.exp-timeline.is-visible .exp-dot{ opacity:1; transform: scale(1); }
-.exp-timeline-item:nth-child(1) .exp-dot{ transition-delay: .1s; }
-.exp-timeline-item:nth-child(2) .exp-dot{ transition-delay: .35s; }
-.exp-timeline-item:nth-child(3) .exp-dot{ transition-delay: .6s; }
-.exp-header{
-  display:flex; flex-wrap:wrap; align-items:baseline; gap: 6px 16px;
-  margin-bottom: 14px;
-}
-.exp-role{ font-family: var(--serif); font-size:1.3rem; font-weight:600; }
-.exp-company{ color: var(--dim); font-size:0.92rem; }
-.exp-dates{ font-size:0.8rem; color: var(--dim); margin-left:auto; }
-.exp-points{ max-width: 68ch; }
-.exp-points li{
-  position:relative; padding-left: 20px; margin-bottom:12px; color:var(--dim); line-height:1.6; font-size:0.94rem;
-}
-.exp-points li::before{
-  content:''; position:absolute; left:0; top:9px; width:9px; height:1px; background: var(--accent);
-}
-.exp-points li:last-child{ margin-bottom:0; }
-
-/* ---------- SKILLS ---------- */
-.skills-grid{
-  display:grid; grid-template-columns: repeat(4,1fr); gap: 20px;
-}
-.skill-card{
-  padding: 28px clamp(18px,2vw,26px);
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  box-shadow: var(--card-shadow);
-}
-.skill-card h4{
-  font-family: var(--serif); font-weight:600; font-size:1.05rem; margin-bottom:20px;
-  min-height: 2.4em; color: var(--accent-2);
-}
-.pill-list{ display:flex; flex-wrap:wrap; gap:9px; }
-.pill{
-  display:inline-flex; align-items:center;
-  padding: 8px 15px; border-radius:999px;
-  background: var(--bg-elev); border: 1px solid var(--line);
-  font-size:0.82rem; color: var(--ink);
-  transition: border-color .25s ease, transform .25s ease;
-}
-.pill:hover{ border-color: rgba(216,164,78,0.4); transform: translateY(-1px) scale(1.03); }
-
-.tool-grid{
-  display:grid; grid-template-columns: repeat(4,1fr); gap: 16px;
-}
-.tool-tile{
-  display:flex; flex-direction:column; align-items:center; gap:9px;
-  text-align:center;
-}
-.tool-icon{
-  width:48px; height:48px; border-radius:13px;
-  display:flex; align-items:center; justify-content:center;
-  font-family: var(--serif); font-weight:700; font-size:1.05rem; color:#fff;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.18);
-  transition: transform .3s var(--ease);
-}
-.tool-tile:hover .tool-icon{ transform: translateY(-3px) scale(1.05); }
-.tool-label{
-  font-size:0.68rem; letter-spacing:0.03em; color: var(--dim);
-}
-
-@media (max-width: 900px){ .skills-grid{ grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 560px){
-  .skills-grid{ grid-template-columns: 1fr; }
-  .tool-grid{ grid-template-columns: repeat(4,1fr); }
-}
-
-/* ---------- CONTACT — modern layout ---------- */
-.contact-section{ text-align:center; position:relative; overflow:hidden; }
-.contact-section::before{
-  content:''; position:absolute; top:-160px; left:50%; transform:translateX(-50%);
-  width:520px; height:520px; border-radius:50%;
-  background: radial-gradient(circle, var(--orb-color), transparent 65%);
-  pointer-events:none; z-index:0;
-}
-.contact-headline{ max-width: 17ch; margin: 22px auto 0; position:relative; z-index:1; }
-.contact-section > p{ position:relative; z-index:1; }
-
-.contact-methods{
-  position:relative; z-index:1;
-  display:grid; grid-template-columns: repeat(3,1fr); gap:16px;
-  margin: 44px auto 0; max-width: 780px;
-}
-.contact-method-card{
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  padding: 26px 18px;
-  background: var(--card-bg); border:1px solid var(--line); border-radius:18px;
-  box-shadow: var(--card-shadow);
-  transition: transform .3s var(--ease), border-color .3s ease;
-}
-.contact-method-card:hover{ transform: translateY(-4px); border-color: rgba(216,164,78,0.35); }
-.contact-method-card .cm-icon{
-  width:42px; height:42px; border-radius:12px;
-  display:flex; align-items:center; justify-content:center;
-  background: rgba(216,164,78,0.12); color: var(--accent);
-}
-.contact-method-card .cm-label{ font-size:0.76rem; letter-spacing:0.04em; text-transform:uppercase; color: var(--dim); }
-.contact-method-card .cm-value{ font-size:0.92rem; font-weight:600; color: var(--ink); word-break:break-word; }
-
-@media (max-width: 640px){
-  .contact-methods{ grid-template-columns: 1fr; }
-}
-
-
-
-/* ---------- EXPERIENCE TIMELINE ALIGNMENT FIX ---------- */
-#experience .exp-timeline{
-  --timeline-rail-x: 14px;
-  position:relative;
-  padding-left:38px;
-  max-width:100%;
-}
-#experience .exp-timeline::before{
-  left:var(--timeline-rail-x);
-  top:7px;
-  bottom:7px;
-  width:2px;
-  border-radius:2px;
-}
-#experience .exp-timeline-item{
-  position:relative;
-  padding:0 0 42px;
-  min-width:0;
-}
-#experience .exp-timeline-item:last-child{padding-bottom:0;}
-#experience .exp-dot{
-  left:-31px;
-  top:5px;
-  width:14px; height:14px;
-  box-sizing:border-box;
-  margin:0;
-  z-index:1;
-}
-#experience .exp-header{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  align-items:baseline;
-  gap:5px 18px;
-  margin:0 0 14px;
-}
-#experience .exp-role{grid-column:1; margin:0; line-height:1.3;}
-#experience .exp-company{grid-column:1; line-height:1.45; overflow-wrap:anywhere;}
-#experience .exp-dates{grid-column:2; grid-row:1 / span 2; margin:0; text-align:right; white-space:normal; line-height:1.45;}
-#experience .exp-points{max-width:75ch; margin:0; padding:0;}
-#experience .exp-points li{padding-left:20px; margin-bottom:11px;}
-@media(max-width:640px){
-  #experience .exp-timeline{padding-left:30px; --timeline-rail-x:9px;}
-  #experience .exp-timeline-item{padding-bottom:32px;}
-  #experience .exp-dot{left:-27px; top:4px; width:13px; height:13px;}
-  #experience .exp-header{grid-template-columns:minmax(0,1fr); gap:4px; margin-bottom:12px;}
-  #experience .exp-role,#experience .exp-company,#experience .exp-dates{grid-column:1; grid-row:auto; text-align:left;}
-  #experience .exp-dates{margin-top:3px; font-size:.78rem;}
-  #experience .exp-points li{font-size:.9rem; line-height:1.6;}
-}
-</style>
-<script>try{if(localStorage.getItem('sr-theme')==='light'){document.documentElement.setAttribute('data-theme','light');}}catch(e){}</script>
-</head>
-<body>
-
-<nav class="site-nav">
-  <a href="#top" class="nav-name">Sanmathi Ramesh</a>
-  <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#work">Work</a>
-    <a href="#experience">Experience</a>
-    <button class="theme-toggle" aria-label="Toggle light and dark mode" type="button">
-      <svg class="icon-moon" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      <svg class="icon-sun" viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
-    </button>
-    <a href="#contact" class="btn-glass">Get in touch</a>
-  </div>
-</nav>
-
-<!-- ============ HERO ============ -->
-<header class="hero" id="top">
-  <div class="hero-bg-orb"></div>
-  <div class="wrap hero-inner">
-    <div class="hero-text">
-      <span class="hero-tag reveal"><span class="dot"></span> UX/UI Designer — Chennai, India</span>
-
-      <h1 class="display-1 hero-headline reveal">
-        Enterprise software, <span class="grad-text">simplified</span> to its essence.
-      </h1>
-
-      <p class="body-lg hero-sub reveal">
-        I take ambiguous, data-heavy enterprise systems — SaaS, fintech, logistics, healthcare —
-        and turn them into workflows people actually enjoy using.
-      </p>
-
-      <div class="hero-cta-row reveal">
-        <a href="#work" class="btn primary"><span>Selected work</span><span class="btn-icon">&#8599;</span></a>
-        <a href="assets/sanmathi-ramesh-resume.pdf" class="btn ghost" target="_blank" rel="noopener"><span class="btn-icon">&#8595;</span><span>Resume</span></a>
-      </div>
-
-      <dl class="hero-meta reveal">
-        <div><dt>Role</dt><dd>UX/UI Designer</dd></div>
-        <div><dt>Focus</dt><dd>Enterprise · FinTech · AI</dd></div>
-      </dl>
-    </div>
-
-    <svg class="hero-illustration reveal" viewBox="0 0 480 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs>
-  <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#F0C878" stop-opacity="0.55"></stop>
-    <stop offset="100%" stop-color="#F0C878" stop-opacity="0"></stop>
-  </radialGradient>
-  <radialGradient id="violetGlow" cx="50%" cy="50%" r="50%">
-    <stop offset="0%" stop-color="#9F8CFF" stop-opacity="0.45"></stop>
-    <stop offset="100%" stop-color="#9F8CFF" stop-opacity="0"></stop>
-  </radialGradient>
-  <linearGradient id="heroCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#F0C878"></stop>
-    <stop offset="100%" stop-color="#9F8CFF"></stop>
-  </linearGradient>
-</defs>
-
-<circle cx="260" cy="260" r="250" fill="url(#violetGlow)"></circle>
-<circle cx="200" cy="200" r="160" fill="url(#goldGlow)"></circle>
-
-<!-- browser window (web) -->
-<g class="hero-float-slow">
-  <rect x="40" y="60" width="360" height="260" rx="16" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-  <line x1="40" y1="98" x2="400" y2="98" stroke="var(--line)" stroke-width="1"></line>
-  <circle cx="64" cy="79" r="5" fill="var(--dim-2)" opacity="0.5"></circle>
-  <circle cx="82" cy="79" r="5" fill="var(--dim-2)" opacity="0.5"></circle>
-  <circle cx="100" cy="79" r="5" fill="var(--dim-2)" opacity="0.5"></circle>
-
-  <!-- sidebar -->
-  <rect x="40" y="98" width="64" height="222" fill="var(--bg-elev)"></rect>
-  <rect x="56" y="122" width="34" height="7" rx="3.5" fill="var(--line-strong)"></rect>
-  <rect x="56" y="146" width="34" height="7" rx="3.5" fill="var(--line)"></rect>
-  <rect x="56" y="170" width="34" height="7" rx="3.5" fill="var(--line)"></rect>
-  <rect x="56" y="194" width="34" height="7" rx="3.5" fill="var(--line)"></rect>
-
-  <!-- hero gradient card -->
-  <rect x="126" y="120" width="252" height="70" rx="10" fill="url(#heroCardGrad)" opacity="0.88"></rect>
-  <rect x="144" y="138" width="90" height="8" rx="4" fill="#191204" opacity="0.35"></rect>
-  <rect x="144" y="154" width="130" height="7" rx="3.5" fill="#191204" opacity="0.22"></rect>
-  <rect x="144" y="170" width="60" height="14" rx="7" fill="#191204" opacity="0.3"></rect>
-
-  <!-- content row -->
-  <rect x="126" y="206" width="120" height="88" rx="10" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-  <rect x="140" y="222" width="60" height="7" rx="3.5" fill="var(--line-strong)"></rect>
-  <rect x="140" y="238" width="80" height="6" rx="3" fill="var(--line)"></rect>
-  <rect x="140" y="252" width="70" height="6" rx="3" fill="var(--line)"></rect>
-
-  <rect x="258" y="206" width="120" height="88" rx="10" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-  <polyline points="270,270 288,255 306,262 324,238 342,248 360,225" fill="none" stroke="var(--accent)" stroke-width="2"></polyline>
-  <circle cx="360" cy="225" r="4" fill="var(--accent)"></circle>
-</g>
-
-<!-- phone (mobile) overlapping bottom-right -->
-<g class="hero-float-fast">
-  <rect x="300" y="230" width="130" height="220" rx="20" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-  <rect x="352" y="240" width="26" height="5" rx="2.5" fill="var(--dim-2)" opacity="0.5"></rect>
-
-  <rect x="316" y="258" width="98" height="50" rx="8" fill="url(#heroCardGrad)" opacity="0.9"></rect>
-  <rect x="328" y="270" width="40" height="6" rx="3" fill="#191204" opacity="0.35"></rect>
-  <rect x="328" y="282" width="60" height="5" rx="2.5" fill="#191204" opacity="0.2"></rect>
-
-  <rect x="316" y="318" width="98" height="30" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-  <rect x="328" y="330" width="50" height="6" rx="3" fill="var(--line-strong)"></rect>
-
-  <rect x="316" y="356" width="98" height="30" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-  <rect x="328" y="368" width="60" height="6" rx="3" fill="var(--line-strong)"></rect>
-
-  <rect x="316" y="398" width="98" height="34" rx="17" fill="var(--accent)"></rect>
-  <rect x="348" y="411" width="34" height="7" rx="3.5" fill="#191204" opacity="0.6"></rect>
-</g>
-
-<!-- floating "done" chip -->
-<g class="hero-chip-float-1">
-  <rect x="30" y="330" width="86" height="34" rx="17" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.2"></rect>
-  <circle cx="50" cy="347" r="8" fill="var(--accent)"></circle>
-  <path d="M46 347 l3 3 l6 -6" stroke="#191204" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-  <rect x="66" y="343" width="38" height="7" rx="3.5" fill="var(--line-strong)"></rect>
-</g>
-</svg>
-  </div>
-
-  <div class="scroll-cue reveal">
-    <span class="line"></span>
-    <span>Scroll</span>
-  </div>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sanmathi Ramesh — Product &amp; UX/UI Designer</title>
+<meta name="theme-color" content="#2F7FD8">
+<meta name="description" content="Sanmathi Ramesh, UX/UI Designer in Chennai. Simplifying enterprise workflows, web applications and mobile experiences.">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="styles.css"><script>try{document.documentElement.dataset.theme=localStorage.getItem('sr-theme')||'light'}catch(e){}</script></head><body><header class="bar">
+<button type="button" class="sfx-btn" id="sfxBtn" aria-pressed="true" aria-label="Sound effects on" title="Sound on/off"><svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"></path><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"></path></svg><svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"></path><path d="M16 9.5l5 5M21 9.5l-5 5"></path></svg></button>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme"><span class="ti"><svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg><svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"></path></svg></span><span class="tl"><b class="tl-n">Night</b><b class="tl-d">Day</b></span></button>
+  <a class="logo" href="#top" data-go="top" aria-label="Sanmathi Ramesh, back to top"><i><span class="sr-monogram">SR</span></i><span class="lt">Sanmathi Ramesh</span></a>
+  <nav class="nav" aria-label="Sections">
+    <span class="ind" id="navInd" aria-hidden="true"></span>
+    <a href="#top" data-go="top" class="nv-home"><i class="ni face"><span class="sr-avatar" aria-hidden="true">SR</span></i>Home</a>
+    <a href="#journey" data-go="journey"><i class="ni"><svg viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg></i>Journey</a>
+    <a href="#work" data-go="work"><i class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"></rect><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12.5h18"></path></svg></i>Work</a>
+    <a href="#life" data-go="life"><i class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg></i>About</a>
+    <a href="#hello" data-go="hello"><i class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M4 7l8 6 8-6"></path></svg></i>Contact</a>
+    <span class="sep" aria-hidden="true"></span>
+    <a class="cta" href="resume.pdf" rel="noopener" target="_blank">Resume ↗</a>
+  </nav>
 </header>
 
-<!-- ============ ABOUT ============ -->
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="reveal">
-        <span class="label">About</span>
-        <h2 class="display-2" style="margin-top:14px;">Two years in,<br>seven industries deep.</h2>
-
-        <div class="about-stats-vert">
-          <div class="about-stat-card">
-            <div class="stat-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 7v5l3.5 2"></path>
-              </svg>
-            </div>
-            <span class="num" data-count-to="2" data-suffix=" yrs">2 yrs</span>
-            <span class="cap">Professional experience</span>
-          </div>
-          <div class="about-stat-card">
-            <div class="stat-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 3 3 8l9 5 9-5-9-5Z"></path>
-                <path d="M3 16l9 5 9-5"></path>
-                <path d="M3 12l9 5 9-5"></path>
-              </svg>
-            </div>
-            <span class="num" data-count-to="6" data-suffix="+">6+</span>
-            <span class="cap">Industries — SaaS to healthcare</span>
-          </div>
-          <div class="about-stat-card">
-            <div class="stat-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 6 9 17l-5-5"></path>
-              </svg>
-            </div>
-            <span class="num" data-count-to="7" data-suffix="+">7+</span>
-            <span class="cap">Projects delivered</span>
-          </div>
-          <div class="about-stat-card">
-            <div class="stat-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m12 2 2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.5-6.3 4.5 2.3-7.2-6-4.6h7.6z"></path>
-              </svg>
-            </div>
-            <span class="num">Figma</span>
-            <span class="cap">+ Claude &amp; Figma Make in the workflow</span>
-          </div>
-        </div>
+<main>
+<!-- 1 · THE VALLEY -->
+<section class="valley" id="top" aria-label="Sanmathi’s design world">
+  <div class="stage" id="stage">
+    <div class="ph-hero" aria-hidden="true"></div>
+    <canvas class="gl-plate" id="glPlate" aria-hidden="true"></canvas>
+    <div class="hero-scrim" id="heroScrim" aria-hidden="true"></div>
+    <div class="cam" id="cam">
+      <div class="scene" id="scene">
+        <div class="ly keep" data-d=".3" id="L-plate"><img class="plate" src="assets/atelier-hero.webp" alt="An illustrated woman designer overlooking connected college and design workplaces, with UX/UI elements representing her portfolio projects"></div>
+        <div class="ly" data-d=".5" data-id="oyo"><button class="hot" data-id="oyo" aria-label="Product design Next" style="left:85%;top:21.8%;width:14.2%;height:18.2%"></button><button class="pin" data-id="oyo" style="left:89%;top:28%;--c:#DC402A" aria-label="Product design Next"><b><span class="sr-pin-mark">P</span>Product design<small class="pyr">Next</small></b><i class="pd" aria-hidden="true"></i></button></div>
+        <div class="ly" data-d=".5" data-id="mmt"><button class="hot" data-id="mmt" aria-label="Revolite Now" style="left:63.5%;top:38%;width:19%;height:13%"></button><button class="pin" data-id="mmt" style="left:72%;top:42.5%;--c:#E4262C" aria-label="Revolite Now"><b><span class="sr-pin-mark">R</span>Revolite<small class="pyr">Now</small></b><i class="pd" aria-hidden="true"></i></button></div>
+        <div class="ly" data-d=".5" data-id="nsut"><button class="hot" data-id="nsut" aria-label="B.E. CSE 2023" style="left:4%;top:29.3%;width:14.5%;height:21.3%"></button><button class="pin" data-id="nsut" style="left:12%;top:48%;--c:#C4553A" aria-label="B.E. CSE 2023"><b><span class="sr-pin-mark">B</span>B.E. CSE<small class="pyr">2023</small></b><i class="pd" aria-hidden="true"></i></button></div>
+        <div class="ly" data-d=".62" data-id="eazydiner"><button class="hot" data-id="eazydiner" aria-label="Ishop 2024" style="left:72.5%;top:60.4%;width:17.5%;height:15.1%"></button><button class="pin" data-id="eazydiner" style="left:80.5%;top:62.5%;--c:#EE5A2B" aria-label="Ishop 2024"><span class="hint" id="hint" aria-hidden="true">click a place ↗</span><b><span class="sr-pin-mark">I</span>Ishop<small class="pyr">2024</small></b><i class="pd" aria-hidden="true"></i></button></div>
+        <div class="ly" data-d=".97" data-id="me"><button class="hot" data-id="me" aria-label="Sanmathi " style="left:7.5%;top:58.6%;width:30.5%;height:30.2%"></button><button class="pin" data-id="me" style="left:17.5%;top:62%;--c:#F2B705" aria-label="Sanmathi "><b><span class="sr-pin-mark">S</span>Sanmathi<small class="pyr"></small></b><i class="pd" aria-hidden="true"></i></button></div>
       </div>
-      <div class="about-copy reveal">
-        <p class="body-lg" style="color:var(--ink);">
-          UX/UI Designer with 2 years of experience across enterprise SaaS, fintech, logistics
-          and publishing. Skilled at simplifying complex systems by identifying core user needs
-          and designing flows that feel natural.
-        </p>
-        <p class="body">
-          I work closely with product and engineering teams, integrating AI tools like Claude
-          and Figma Make AI into research and iteration. Known for turning ambiguous, data-heavy
-          problems into clear, role-specific experiences that ship with minimal rework.
-        </p>
-        <p class="body">
-          I enjoy solving problems where users, business requirements and technical constraints
-          intersect.
-        </p>
-        <p class="body">
-          I focus on understanding the problem first, defining the right structure, and
-          designing experiences that are intuitive, scalable and useful.
-        </p>
-        <p class="body">
-          That approach carries into how she works with a team, too — asking questions early,
-          sharing progress often, and treating feedback as part of the process rather than a
-          final check at the end.
-        </p>
+    </div>
+
+    <div class="sky-birds" id="skyBirds" aria-hidden="true"></div>
+    <div class="hero-copy" id="heroCopy">
+      <p class="hey"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M9 17c-2-3-3-6-1-7s3 2 4 4M11 13l-2-6c-1-2 2-3 3-1l3 7M14 12l-1-6c0-2 3-2 3 0l1 6M17 12v-4c0-2 3-2 3 0v8c0 5-3 9-8 9-3 0-5-2-6-5" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"></path><path d="M23 6c2 1 3 3 3 5M5 7C4 9 3 10 3 12" stroke="#FFD23F" stroke-width="1.6" fill="none" stroke-linecap="round"></path></svg>hey, I'm Sanmathi</p>
+      <h1><span class="ln"><span>Making complex</span></span><span class="ln" style="--dl:1.9s"><span>feel <span class="rq b-sun">simple.</span></span></span></h1>
+      <p class="sub">UX/UI designer turning complicated products into <span class="br">experiences people actually enjoy using.</span></p>
+    </div>
+    <div class="scroll-cue" id="cue"><i></i>scroll to fly in</div>
+    <aside class="sheet" id="sheet" aria-live="polite" data-lenis-prevent>
+      <div class="sh-top"><span class="tag" id="s-tag"></span><button class="x" id="s-x" aria-label="Close">×</button></div>
+      <h2 id="s-t"></h2>
+      <p class="role" id="s-r"></p>
+      <p class="lead" id="s-l"></p>
+      <div class="did" id="s-d"></div>
+      <div class="s-fun" id="s-f" hidden></div>
+      <div class="s-gal" id="s-p"></div>
+      <ul class="nums" id="s-n"></ul>
+      <div class="row" id="s-row"></div>
+    </aside>
+
+
+    <div class="night" aria-hidden="true"><i></i></div>
+    <div class="shade" id="shade"></div>
+    <div class="veil" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- 2 · HOW I GOT HERE -->
+<section class="story" id="story" aria-label="How I got here">
+  <div class="story-pin">
+    <div class="wrap">
+      <p class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 7.1L21 5l-3.6 6.5L24 14l-7.1 1.3L19 22l-7-3.9L5 22l2.1-6.7L0 14l6.6-2.5L3 5l6.8 3.1z"></path></svg>How I got here</p>
+      <div class="tell-box" id="tellBox">
+        <p class="tell" id="tell">I started with a <span class="hl b-sky" data-dd="gear">Computer Science</span> degree, but found myself more curious about how people <span class="hl" data-dd="circle">experience technology</span> than how it works behind the scenes. Now I design <span class="hl b-sun" data-dd="under">enterprise software</span>, mobile apps, and digital products—making <span class="hl b-coral" data-dd="stars">complex workflows</span> <span class="hl b-lilac" data-dd="scribble">clearer, faster, and easier to use.</span></p>
+        <svg class="doodles" id="doodles" aria-hidden="true"></svg>
+        <div class="sticky" data-at=".25" style="--sc:#FFE98A;--r:-6deg;right:-3%;top:2%">B.E. CSE graduate.<br>Curious by default.<small>B.E. CSE · 2023</small></div>
+        <div class="sticky" data-at=".5" style="--sc:#FFD1C4;--r:5deg;right:-1%;top:38%">2 years in design.<br>Simplifying complex products.<small>UX/UI Designer</small></div>
+        <div class="sticky st-logos" data-at=".75" style="--sc:#CFE7FF;--r:-3deg;right:1%;bottom:-2%">I’ve worked with<span class="sr-companies">Ishop<br>Revolite Infotech</span></div>
+        <p class="move-hint" id="moveHint">these notes move ;)<svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 20C12 10 22 8 34 12M34 12l-7-5M34 12l-6 6"></path></svg></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SKILLS ============ -->
-<section class="section tight" id="skills">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="label">Capabilities</span>
-      <h2 class="display-2">How the work gets made.</h2>
-    </div>
-
-    <div class="skills-grid reveal">
-      <div class="skill-card">
-        <h4>UX Research &amp; Strategy</h4>
-        <div class="pill-list">
-          <span class="pill">User Research</span>
-          <span class="pill">User-Centered Design</span>
-          <span class="pill">Information Architecture</span>
-          <span class="pill">Usability Testing</span>
-          <span class="pill">Product Thinking</span>
+<!-- 3 · THE JOURNEY -->
+<section class="journey torn torn-bot" id="journey" aria-label="The journey">
+  <div class="j-track" id="jTrack">
+    <div class="j-pin" id="jPin">
+      <div class="mapview" id="mapview">
+        <div class="world3" id="world3">
+          <svg id="mapArt" aria-hidden="true"></svg>
+          <div class="me-tip" id="meTip"><svg viewBox="0 0 48 48"><path class="cone" d="M24 24 L6 -14 A40 40 0 0 1 42 -14 Z"></path><circle cx="24" cy="24" r="17" fill="#fff"></circle><path d="M24 10 L34 34 L24 28.5 L14 34 Z" fill="#4285F4" stroke="#1A5FD0" stroke-width="1.6" stroke-linejoin="round"></path></svg></div>
+          <div class="pols" id="pols"></div>
         </div>
       </div>
-      <div class="skill-card">
-        <h4>UI &amp; Interaction Design</h4>
-        <div class="pill-list">
-          <span class="pill">Wireframing &amp; Prototyping</span>
-          <span class="pill">Interaction Design</span>
-          <span class="pill">Visual Hierarchy</span>
-          <span class="pill">Design Systems &amp; Tokens</span>
-          <span class="pill">Component Libraries</span>
-          <span class="pill">Accessibility Design</span>
-          <span class="pill">Responsive &amp; Adaptive Design</span>
+      <div class="j-fade" id="jFade" aria-hidden="true"></div>
+      <div class="j-head" id="jHead">
+        <div class="sec-head">
+          <p class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 7.1L21 5l-3.6 6.5L24 14l-7.1 1.3L19 22l-7-3.9L5 22l2.1-6.7L0 14l6.6-2.5L3 5l6.8 3.1z"></path></svg>The journey</p>
+          <h2>From code curiosity to <span class="hl b-sky" id="journeyHl">design thinking.</span></h2>
+          <p>Four stops along the way. <span class="j-how">Scroll to walk the path.</span></p>
         </div>
       </div>
-      <div class="skill-card">
-        <h4>AI &amp; Product Design</h4>
-        <div class="pill-list">
-          <span class="pill">AI-Assisted Design Workflows</span>
-          <span class="pill">Designing for AI-Powered Products</span>
-          <span class="pill">User Flows</span>
-          <span class="pill">Developer Handoff</span>
-        </div>
+      <div class="compass" id="compass" aria-hidden="true">
+        <svg viewBox="0 0 108 108">
+          <circle cx="54" cy="54" r="50" fill="#FFFDF8" stroke="#13233A" stroke-width="1.5"></circle>
+          <circle cx="54" cy="54" r="42" fill="none" stroke="#13233A" stroke-width=".8" stroke-dasharray="1.5 4.1"></circle>
+          <g font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="800" fill="#13233A" text-anchor="middle"><text x="54" y="20">N</text><text x="54" y="96">S</text><text x="91" y="58">E</text><text x="17" y="58">W</text></g>
+          <g class="needle" id="needle"><path d="M54 26 L60 54 L54 58 L48 54Z" fill="#FF6B4A"></path><path d="M54 82 L60 54 L54 50 L48 54Z" fill="#13233A"></path><circle cx="54" cy="54" r="3.5" fill="#FFFDF8" stroke="#13233A"></circle></g>
+        </svg>
       </div>
-      <div class="skill-card">
-        <h4>Tools &amp; Technical</h4>
-        <div class="tool-grid">
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:#1E1E1E;">
-              <svg viewBox="0 0 24 36" width="28" height="34" aria-label="Figma logo" role="img">
-                <path fill="#F24E1E" d="M0 6a6 6 0 0 1 6-6h6v12H6A6 6 0 0 1 0 6Z"/>
-                <path fill="#FF7262" d="M12 0h6a6 6 0 1 1 0 12h-6Z"/>
-                <path fill="#A259FF" d="M0 18a6 6 0 0 1 6-6h6v12H6a6 6 0 0 1-6-6Z"/>
-                <circle cx="18" cy="18" r="6" fill="#1ABCFE"/>
-                <path fill="#0ACF83" d="M0 30a6 6 0 0 1 6-6h6v6a6 6 0 1 1-12 0Z"/>
-              </svg>
-            </div><span class="tool-label">Figma</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:#2C001E;">
-              <svg viewBox="0 0 48 48" width="42" height="42" role="img" aria-label="Adobe XD logo">
-                <rect x="1" y="1" width="46" height="46" rx="9" fill="#2C001E"/>
-                <text x="24" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#FF61F6">Xd</text>
-              </svg>
-            </div><span class="tool-label">Adobe XD</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:#330000;">
-              <svg viewBox="0 0 48 48" width="42" height="42" role="img" aria-label="Adobe Illustrator logo">
-                <rect x="1" y="1" width="46" height="46" rx="9" fill="#330000"/>
-                <text x="24" y="31" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#FF9A00">Ai</text>
-              </svg>
-            </div><span class="tool-label">Illustrator</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:#D97757;">
-              <svg viewBox="0 0 48 48" width="38" height="38" role="img" aria-label="Claude logo">
-                <g fill="none" stroke="#FFF8F1" stroke-width="2.6" stroke-linecap="round">
-                  <path d="M24 5v38M7.5 14.5l33 19M40.5 14.5l-33 19M10 6.5l28 35M38 6.5l-28 35"/>
-                </g>
-              </svg>
-            </div><span class="tool-label">Claude</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:#1E1E1E;">
-              <svg viewBox="0 0 24 36" width="28" height="34" role="img" aria-label="Figma Make logo">
-                <path fill="#F24E1E" d="M0 6a6 6 0 0 1 6-6h6v12H6A6 6 0 0 1 0 6Z"/><path fill="#FF7262" d="M12 0h6a6 6 0 1 1 0 12h-6Z"/>
-                <path fill="#A259FF" d="M0 18a6 6 0 0 1 6-6h6v12H6a6 6 0 0 1-6-6Z"/><circle cx="18" cy="18" r="6" fill="#1ABCFE"/><path fill="#0ACF83" d="M0 30a6 6 0 0 1 6-6h6v6a6 6 0 1 1-12 0Z"/>
-              </svg>
-            </div><span class="tool-label">Figma Make</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:none;padding:0;">
-              <svg viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="HTML5 logo"><path fill="#E44D26" d="M4 3h40l-3.7 38L24 46 7.7 41Z"/><path fill="#F16529" d="M24 6h16l-3.2 32L24 42Z"/><path fill="#FFF" d="M12 13h24l-.5 5H18l.5 5h16l-1.5 13L24 39l-9-3-.6-7h5l.4 3 4.2 1.3 4.2-1.3.5-5H14Z"/></svg>
-            </div><span class="tool-label">HTML5</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:none;padding:0;">
-              <svg viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="CSS3 logo"><path fill="#264DE4" d="M4 3h40l-3.7 38L24 46 7.7 41Z"/><path fill="#2965F1" d="M24 6h16l-3.2 32L24 42Z"/><path fill="#FFF" d="M12 13h24l-.5 5H18l.3 4h16l-1.5 13L24 39l-9-3-.6-7h5l.4 3 4.2 1.3 4.2-1.3.5-5H14Z"/></svg>
-            </div><span class="tool-label">CSS3</span>
-          </div>
-          <div class="tool-tile">
-            <div class="tool-icon" style="background:none;padding:0;">
-              <svg viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="JavaScript logo"><rect x="2" y="2" width="44" height="44" rx="4" fill="#F7DF1E"/><text x="37" y="38" text-anchor="end" font-family="Arial,sans-serif" font-weight="700" font-size="21" fill="#111">JS</text></svg>
-            </div><span class="tool-label">JavaScript</span>
-          </div>
-        </div>
+      <article class="jcard" id="jcard" aria-live="polite"><div class="jc-in" id="jcIn"></div></article>
+      <div class="mapctl" aria-label="Map controls">
+        <button class="solo" id="mapRe" type="button" aria-label="Recenter"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg></button>
+        <div class="grp"><button id="mapIn" type="button" aria-label="Zoom in">+</button><button id="mapOut" type="button" aria-label="Zoom out">−</button></div>
       </div>
+      <div class="jcar" aria-label="Journey stops"><button type="button" id="jcPrev" aria-label="Previous stop" disabled>←</button><span id="jcCount"></span><button type="button" id="jcNext" class="nx">Start the journey <span aria-hidden="true">→</span></button></div>
+      <button type="button" class="jtl-view" id="jtlView"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg>View journey map</button>
+      <nav class="jtl" id="jtl" aria-label="Years"><ol id="jtlDots"></ol><span class="yr" id="jtlYr">2023 → now</span></nav>
     </div>
   </div>
 </section>
 
-<!-- ============ SELECTED WORK ============ -->
-<section class="section" id="work">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photos" data-lenis-prevent>
+  <div class="lb-head"><div><p id="lbWhen"></p><h4 id="lbTitle"></h4></div><button class="lb-x" id="lbX" type="button" aria-label="Close photos">×</button></div>
+  <div class="lb-track" id="lbTrack"></div>
+  <div class="lb-foot"><button id="lbPrev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"></path></svg></button><span id="lbCount">1 / 3</span><button id="lbNext" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg></button></div>
+</div>
+
+<!-- 4 · WORK -->
+<section class="work" id="work" aria-label="Selected work">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="label">Selected work</span>
-      <h2 class="display-2">Six systems, six kinds of complexity.</h2>
-      <p class="body" style="margin-left:auto;margin-right:auto;">
-        Enterprise operations, financial risk, patient data, mobile lending, AI trust, and
-        retail — different domains, the same underlying job: make the complicated thing usable.
-      </p>
+    <div class="sec-head">
+      <p class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 7.1L21 5l-3.6 6.5L24 14l-7.1 1.3L19 22l-7-3.9L5 22l2.1-6.7L0 14l6.6-2.5L3 5l6.8 3.1z"></path></svg>Selected work</p>
+      <h2>Things I've designed, and the <span class="hl b-sun" id="workHl">problems behind them.</span></h2>
+      <p>Real workflows, thoughtful interfaces, and ideas worth exploring. Pick a card from the box.</p>
     </div>
+  </div>
+  <div class="box-track" id="boxTrack">
+  <div class="box-stage" id="boxStage">
+    <div class="box-fit" id="boxFit">
+      <div class="box3" id="box3">
+        <div class="box-shadow"></div>
+        <div class="box-floor"></div>
+      </div>
+    </div>
+    <p class="box-cap" id="boxCap"><span class="hint2">pick a card →</span></p>
+  </div>
+  </div>
+</section>
 
-    <div class="work-grid">
+<!-- 4b · BRAND & WEB -->
+<section class="brand-sec torn" id="brand" aria-label="Brand and web work" hidden="" aria-hidden="true">
+  <div class="brand-pin" id="brandPin">
+    <div class="brand-head">
+      <div class="bh-l">
+        <h2>Brands &amp; <span class="hl b-coral" id="brandHl">websites</span></h2>
+        <p class="bh-sub">I also design beautiful websites and brands that people remember, from the first sketch to launch day.</p>
+        <a class="bh-cta" href="mailto:sanmathi972@gmail.com" rel="noopener" data-book><i></i>Book a free call ↗</a>
+      </div>
+    </div>
+    <div class="brand-car"><div class="brand-row" id="brandRow"></div><button type="button" class="bnav prev" id="bPrev" aria-label="Previous site">←</button><button type="button" class="bnav next" id="bNext" aria-label="Next site">→</button></div>
+    <div class="brand-prog"><i id="brandProg"></i></div>
+  </div>
+</section>
 
-      <!-- 01 WAREHOUSE — featured -->
-      <a class="work-card featured reveal" href="#work">
-        <span class="w-index">01 / 06</span>
-        <div class="tag-row"><span>Enterprise SaaS</span><span>Logistics &amp; Supply Chain</span></div>
-        <h3>Enterprise Warehouse Management System</h3>
-        <ul class="w-bullets">
-          <li>Unified 9 fragmented warehouse operations — returns, invoicing, procurement, HRMS — into a single coherent platform, eliminating role-switching friction, data errors, and zero pipeline visibility.</li>
-          <li>Designed a task-oriented layout that prioritized one-tap actions over dashboards, matching how operators actually worked.</li>
-          <li>Redesigned Inward, Outward B2C, GRN, Manpower Tracking, and Compliance &amp; Safety modules, making data entry screens easier to understand and surfacing key metrics through dashboards.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      
-        <svg class="work-diagram diagram-landscape" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-wh" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-      <clipPath id="wh-phone-screen"><rect x="332" y="22" width="96" height="206" rx="19" /></clipPath>
-    </defs>
-    <g class="d-illust">
-      <rect x="20" y="30" width="270" height="210" rx="14" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <line x1="20" y1="64" x2="290" y2="64" stroke="var(--line)" stroke-width="1"></line>
-      <circle cx="42" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="58" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="74" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      
-      <rect x="36" y="60" width="46" height="160" fill="var(--bg-elev)"></rect>
-      <rect x="46" y="76" width="26" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-      <rect x="46" y="94" width="26" height="5" rx="2.5" fill="var(--line)"></rect>
-      <rect x="46" y="112" width="26" height="5" rx="2.5" fill="var(--line)"></rect>
-      <rect x="46" y="130" width="26" height="5" rx="2.5" fill="var(--line)"></rect>
+<div class="cs" id="cs" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Case study"></div>
 
-      <rect x="94" y="60" width="150" height="22" rx="5" fill="url(#cardGrad-wh)" opacity="0.85"></rect>
-      <rect x="104" y="68" width="50" height="5" rx="2.5" fill="#191204" opacity="0.4"></rect>
+<!-- 6 · LASTLOOK -->
+<section class="ll torn" id="lastlook" aria-label="Warehouse management system">
+  <div class="ll-rev-track" id="llRevTrack">
+    <div class="ll-rev-pin"><div class="wrap">
+      <div class="sec-head">
+        <p class="kicker">A closer look</p>
+        <h2>Enterprise workflows, <span class="hl b-coral" id="llHl">made human.</span></h2>
+      </div>
+      <p class="tell ll-tell" id="llRev">In <span class="hl b-sun">warehouse management,</span> every extra click can slow down a real operation. My focus is <span class="hl b-mint">understanding the process,</span> reducing friction, and designing interfaces that help teams <span class="hl b-coral">move with confidence.</span></p>
+    </div></div>
+  </div>
+  <div class="wrap sr-wms" id="llRoles"><p class="kicker">Warehouse management system</p><h3>From complexity to clarity.</h3><ol class="sr-flow"><li>Gate In</li><li>Inward</li><li>Quality Check</li><li>Putaway</li><li>Inventory</li><li>Outbound</li></ol><p>A connected experience across core warehouse operations.</p><button class="pill sr-project-link" data-project="0">See WMS project ↗</button></div></section>
 
-      <g>
-        <rect x="94" y="94" width="60" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-        <rect x="186" y="94" width="32" height="5" rx="2.5" fill="var(--line)"></rect>
-        <rect x="94" y="86" width="150" height="1" fill="var(--line)"></rect>
+<!-- 5 · MY STACK -->
+<section class="atelier-stack" id="stack" aria-label="My design toolkit"><div class="wrap atelier-grid"><div class="atelier-copy"><p class="kicker">My stack</p><h2>Open my<br>design toolkit.</h2><p>The tools I use to understand problems, explore possibilities, and make complex experiences feel simple.</p><button class="atelier-button" id="toolkitToggle" aria-expanded="false" aria-controls="atelierTools">Open the toolkit ↗</button><p class="atelier-caption">Same curiosity. Brighter possibilities.</p></div><div class="atelier-archive"><img src="assets/atelier-toolkit.webp" alt="An open blue accordion archive with cream cards and yellow clasps" loading="lazy"><div id="atelierTools" class="atelier-tools" hidden></div></div></div></section>
 
-        <rect x="94" y="112" width="60" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-        <rect x="186" y="112" width="32" height="5" rx="2.5" fill="var(--line)"></rect>
-        <rect x="94" y="104" width="150" height="1" fill="var(--line)"></rect>
-
-        <rect x="94" y="130" width="60" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-        <rect x="186" y="130" width="32" height="5" rx="2.5" fill="var(--line)"></rect>
-        <rect x="94" y="122" width="150" height="1" fill="var(--line)"></rect>
-
-        <rect x="94" y="148" width="60" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-        <rect x="186" y="148" width="32" height="5" rx="2.5" fill="var(--line)"></rect>
-        <rect x="94" y="140" width="150" height="1" fill="var(--line)"></rect>
-      </g>
-      <circle cx="238" cy="97" r="3.4" fill="var(--accent)"></circle>
-      <circle cx="238" cy="115" r="3.4" fill="var(--violet-2)" opacity="0.8"></circle>
-      <circle cx="238" cy="133" r="3.4" fill="var(--accent)"></circle>
-      <circle cx="238" cy="151" r="3.4" fill="var(--dim-2)" opacity="0.6"></circle>
-    
-    </g>
-    <g class="d-illust">
-      <rect x="330" y="20" width="100" height="210" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <g clip-path="url(#wh-phone-screen)">
-      <rect x="364.0" y="30" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <rect x="340" y="60" width="80" height="18" rx="5" fill="url(#cardGrad-wh)" opacity="0.9"></rect>
-      <rect x="348" y="66" width="34" height="5" rx="2.5" fill="#191204" opacity="0.4"></rect>
-
-      <rect x="340" y="90" width="80" height="30" rx="7" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="348" y="100" width="30" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-      <rect x="348" y="110" width="42" height="4" rx="2" fill="var(--line)"></rect>
-
-      <rect x="340" y="128" width="80" height="30" rx="7" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="348" y="138" width="30" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-      <rect x="348" y="148" width="42" height="4" rx="2" fill="var(--line)"></rect>
-
-      <circle cx="348" cy="180" r="3.4" fill="var(--accent)"></circle>
-      <rect x="358" y="177" width="54" height="5" rx="2.5" fill="var(--line-strong)"></rect>
-      </g>
-    </g></svg>
-      </a>
-
-      <!-- 02 BUDGET COCKPIT -->
-      <a class="work-card reveal" href="#work">
-        <svg class="work-diagram diagram-landscape" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-    </defs>
-    <g class="d-illust">
-      <rect x="40" y="30" width="420" height="280" rx="14" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <line x1="40" y1="64" x2="460" y2="64" stroke="var(--line)" stroke-width="1"></line>
-      <circle cx="62" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="78" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="94" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      
-      <rect x="56" y="80" width="90" height="46" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="68" y="94" width="40" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="68" y="108" width="26" height="10" rx="3" fill="var(--accent)"></rect>
-
-      <rect x="156" y="80" width="90" height="46" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="168" y="94" width="40" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="168" y="108" width="26" height="10" rx="3" fill="var(--violet-2)" opacity="0.85"></rect>
-
-      <rect x="256" y="80" width="52" height="46" rx="8" fill="url(#cardGrad-bg)" opacity="0.85"></rect>
-
-      <g stroke="var(--line)" stroke-width="0.5" opacity="0.6">
-        <line x1="56" y1="150" x2="308" y2="150"></line>
-        <line x1="56" y1="175" x2="308" y2="175"></line>
-        <line x1="56" y1="200" x2="308" y2="200"></line>
-      </g>
-      <polyline points="60,195 90,180 120,188 150,155 180,168 210,140 240,150 270,132 300,145"
-        fill="none" stroke="var(--accent)" stroke-width="2"></polyline>
-      <circle cx="270" cy="132" r="5" fill="none" stroke="var(--accent)" stroke-width="1.6"></circle>
-      <line x1="270" y1="132" x2="270" y2="200" stroke="var(--violet-2)" stroke-width="1" stroke-dasharray="2 4"></line>
-    
-    </g></svg>
-        <span class="w-index">02 / 06</span>
-        <div class="tag-row"><span>Enterprise SaaS</span><span>FinTech · AI</span></div>
-        <h3>Real-Time Budget Burn Cockpit</h3>
-        <ul class="w-bullets">
-          <li>Designed a unified platform for budgets, expenses, procurement, approvals, and vendor spending with real-time budget visibility.</li>
-          <li>Designed AI workflows to detect unusual spending, predict overruns, identify root causes, and recommend cost-saving actions.</li>
-          <li>Structured forecasting, scenario planning, approvals, and reporting to support faster, data-driven financial decisions.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      </a>
-
-      <!-- 03 HEALTHPASSPORT -->
-      <a class="work-card reveal" href="#work">
-        <svg class="work-diagram diagram-tall" viewBox="45 10 300 310" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-hp" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-    </defs>
-    <g class="d-illust">
-      <rect x="60" y="25" width="140" height="250" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <rect x="114.0" y="35" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <rect x="80" y="63" width="90" height="90" rx="10" fill="none" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <g stroke="var(--line-strong)" stroke-width="1.4" fill="none">
-        <line x1="98" y1="81" x2="98" y2="95"></line>
-        <line x1="114" y1="81" x2="114" y2="95"></line>
-        <line x1="130" y1="81" x2="130" y2="95"></line>
-        <line x1="98" y1="111" x2="98" y2="125"></line>
-        <line x1="130" y1="111" x2="130" y2="125"></line>
-      </g>
-      <rect x="85" y="167" width="80" height="18" rx="9" fill="var(--accent)" opacity="0.85"></rect>
-      <rect x="100" y="173" width="50" height="6" rx="3" fill="#191204" opacity="0.4"></rect>
-    
-    </g>
-    <g class="d-illust">
-      <rect x="165" y="50" width="160" height="270" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <rect x="229.0" y="60" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <rect x="183" y="76" width="124" height="20" rx="6" fill="url(#cardGrad-hp)" opacity="0.9"></rect>
-      <rect x="191" y="82" width="50" height="6" rx="3" fill="#191204" opacity="0.4"></rect>
-
-      <line x1="197" y1="120" x2="197" y2="258" stroke="var(--line)" stroke-width="1"></line>
-      <circle cx="197" cy="130" r="5" fill="var(--dim-2)" opacity="0.7"></circle>
-      <rect x="211" y="124" width="70" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="211" y="134" width="50" height="5" rx="2.5" fill="var(--line)"></rect>
-
-      <circle cx="197" cy="170" r="6" fill="var(--accent)"></circle>
-      <rect x="211" y="164" width="80" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="211" y="174" width="55" height="5" rx="2.5" fill="var(--line)"></rect>
-
-      <circle cx="197" cy="210" r="5" fill="var(--dim-2)" opacity="0.7"></circle>
-      <rect x="211" y="204" width="65" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="211" y="214" width="45" height="5" rx="2.5" fill="var(--line)"></rect>
-    
-    </g></svg>
-        <span class="w-index">03 / 06</span>
-        <div class="tag-row"><span>Healthcare</span><span>AI</span></div>
-        <h3>HealthPassport AI</h3>
-        <ul class="w-bullets">
-          <li>Designed a centralized digital health platform that unifies prescriptions, reports, medications, allergies, vaccinations, and medical history into a patient-controlled timeline.</li>
-          <li>Designed secure QR-based, permission-controlled sharing, allowing patients to selectively share relevant health records with doctors.</li>
-          <li>Designed AI-powered summaries to turn lengthy medical histories into concise clinical overviews for faster understanding.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      </a>
-
-      <!-- 04 HOUSING FINANCE -->
-      <a class="work-card reveal" href="#work">
-        <svg class="work-diagram diagram-tall" viewBox="35 5 335 300" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-hf" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-    </defs>
-    <g class="d-illust">
-      <rect x="50" y="20" width="130" height="225" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <rect x="99.0" y="30" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <circle cx="115" cy="100" r="30" fill="none" stroke="var(--accent)" stroke-width="2.2"></circle>
-      <path d="M 102 100 l 10 10 l 18 -20" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
-      <rect x="80" y="150" width="70" height="16" rx="8" fill="var(--line)"></rect>
-      <rect x="80" y="174" width="50" height="10" rx="5" fill="var(--line)"></rect>
-    
-    </g>
-    <g class="d-illust">
-      <rect x="200" y="55" width="150" height="260" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <rect x="259.0" y="65" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <rect x="222" y="77" width="106" height="8" rx="4" fill="var(--line)"></rect>
-      <rect x="222" y="77" width="63.599999999999994" height="8" rx="4" fill="var(--accent)"></rect>
-
-      <g fill="var(--dim-2)">
-        <circle cx="230" cy="117" r="4"></circle>
-        <circle cx="272" cy="117" r="4" fill="var(--accent)"></circle>
-        <circle cx="314" cy="117" r="4" opacity="0.4"></circle>
-      </g>
-      <line x1="234" y1="117" x2="268" y2="117" stroke="var(--accent)" stroke-width="1.4"></line>
-      <line x1="276" y1="117" x2="310" y2="117" stroke="var(--line)" stroke-width="1.4"></line>
-
-      <rect x="222" y="139" width="106" height="34" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="232" y="149" width="40" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="232" y="161" width="60" height="5" rx="2.5" fill="var(--line)"></rect>
-
-      <rect x="222" y="183" width="106" height="34" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <rect x="232" y="193" width="40" height="6" rx="3" fill="var(--line-strong)"></rect>
-      <rect x="232" y="205" width="60" height="5" rx="2.5" fill="var(--line)"></rect>
-
-      <rect x="222" y="232" width="106" height="26" rx="13" fill="url(#cardGrad-hf)" opacity="0.9"></rect>
-      <rect x="252" y="242" width="36" height="6" rx="3" fill="#191204" opacity="0.4"></rect>
-    
-    </g></svg>
-        <span class="w-index">04 / 06</span>
-        <div class="tag-row"><span>FinTech</span><span>Mobile</span></div>
-        <h3>Housing Finance — Mobile Application</h3>
-        <ul class="w-bullets">
-          <li>Delivered a self-service mobile app for service requests, payments, and documents, reducing branch visits and status-related drop-offs.</li>
-          <li>Designed guided flows with inline eligibility checks and real-time status visibility to reduce applicant abandonment.</li>
-          <li>Simplified document uploads with guided checklists, improving completion at the key drop-off point.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      </a>
-
-      <!-- 05 JOURNAL RANKING -->
-      <a class="work-card reveal" href="#work">
-        <svg class="work-diagram diagram-landscape" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-jr" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-    </defs>
-    <g class="d-illust">
-      <rect x="40" y="30" width="420" height="280" rx="14" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <line x1="40" y1="64" x2="460" y2="64" stroke="var(--line)" stroke-width="1"></line>
-      <circle cx="62" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="78" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="94" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      
-      <rect x="56" y="80" width="252" height="18" rx="4" fill="var(--bg-elev)"></rect>
-      <rect x="66" y="85" width="60" height="8" rx="4" fill="var(--line-strong)"></rect>
-      <rect x="270" y="85" width="26" height="8" rx="4" fill="var(--accent)"></rect>
-
-      <g>
-        <rect x="56" y="110" width="200" height="14" rx="4" fill="var(--dim-2)" opacity="0.75"></rect>
-        <rect x="264" y="110" width="30" height="14" rx="4" fill="var(--bg-elev)"></rect>
-
-        <rect x="56" y="132" width="150" height="14" rx="4" fill="var(--dim-2)" opacity="0.5"></rect>
-        <rect x="214" y="132" width="30" height="14" rx="4" fill="var(--bg-elev)"></rect>
-
-        <rect x="56" y="154" width="230" height="14" rx="4" fill="url(#cardGrad-jr)"></rect>
-
-        <rect x="56" y="176" width="110" height="14" rx="4" fill="var(--dim-2)" opacity="0.3"></rect>
-        <rect x="174" y="176" width="30" height="14" rx="4" fill="var(--bg-elev)"></rect>
-
-        <rect x="56" y="198" width="70" height="14" rx="4" fill="var(--dim-2)" opacity="0.2"></rect>
-        <rect x="134" y="198" width="30" height="14" rx="4" fill="var(--bg-elev)"></rect>
-      </g>
-    
-    </g></svg>
-        <span class="w-index">05 / 06</span>
-        <div class="tag-row"><span>Research Analytics</span><span>AI</span></div>
-        <h3>AI-Powered Journal Evaluation &amp; Ranking System</h3>
-        <ul class="w-bullets">
-          <li>Made AI-generated journal rankings transparent and actionable, replacing opaque scores that led users to manual research.</li>
-          <li>Used score breakdowns and factor visualizations to help users understand and validate AI-generated rankings.</li>
-          <li>Applied trust research and explainability benchmarks to define the ranking hierarchy before wireframing.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      </a>
-
-      <!-- 06 FARM FRESH -->
-      <a class="work-card reveal" href="#work">
-        <svg class="work-diagram diagram-landscape" viewBox="6 8 410 300" xmlns="http://www.w3.org/2000/svg"><defs>
-      <linearGradient id="cardGrad-ff" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#F0C878"></stop>
-        <stop offset="100%" stop-color="#9F8CFF"></stop>
-      </linearGradient>
-      <clipPath id="ff-phone-screen"><rect x="302" y="92" width="96" height="196" rx="18" /></clipPath>
-    </defs>
-    <g class="d-illust">
-      <rect x="20" y="30" width="260" height="250" rx="14" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <line x1="20" y1="64" x2="280" y2="64" stroke="var(--line)" stroke-width="1"></line>
-      <circle cx="42" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="58" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      <circle cx="74" cy="47" r="4.5" fill="var(--dim-2)" opacity="0.5"></circle>
-      
-      <g>
-        <rect x="56" y="80" width="70" height="60" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-        <rect x="66" y="122" width="30" height="6" rx="3" fill="var(--line-strong)"></rect>
-        <rect x="136" y="80" width="70" height="60" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-        <rect x="146" y="122" width="30" height="6" rx="3" fill="var(--line-strong)"></rect>
-        <rect x="56" y="150" width="70" height="60" rx="8" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-        <rect x="66" y="192" width="30" height="6" rx="3" fill="var(--line-strong)"></rect>
-        <rect x="136" y="150" width="70" height="60" rx="8" fill="url(#cardGrad-ff)" opacity="0.85"></rect>
-      </g>
-    
-    </g>
-    <g class="d-illust">
-      <rect x="300" y="90" width="100" height="200" rx="22" fill="var(--bg-soft)" stroke="var(--line-strong)" stroke-width="1.4"></rect>
-      <g clip-path="url(#ff-phone-screen)">
-      <rect x="334.0" y="100" width="32" height="6" rx="3" fill="var(--dim-2)" opacity="0.5"></rect>
-      
-      <rect x="320" y="180" width="68" height="20" rx="10" fill="var(--bg-elev)" stroke="var(--line)" stroke-width="1"></rect>
-      <circle cx="331" cy="190" r="3" fill="var(--accent)"></circle>
-      <rect x="340" y="187" width="36" height="6" rx="3" fill="var(--line-strong)"></rect>
-
-      <g stroke="var(--ink)" stroke-width="1.6" fill="none">
-        <path d="M 330 220 h34 l-4 26 h-26 z"></path>
-        <path d="M 336 220 v-8 a10 10 0 0 1 20 0 v8"></path>
-      </g>
-      <circle cx="338" cy="252" r="3.5" fill="var(--accent)"></circle>
-      <circle cx="360" cy="252" r="3.5" fill="var(--accent)"></circle>
-      </g>
-    </g></svg>
-        <span class="w-index">06 / 06</span>
-        <div class="tag-row"><span>E-Commerce</span><span>Web &amp; Mobile</span></div>
-        <h3>D2C Farm Fresh E-Commerce Platform</h3>
-        <ul class="w-bullets">
-          <li>Designed end-to-end UI/UX for a farm-to-consumer e-commerce platform including product discovery, cart, and checkout flows.</li>
-          <li>Developed wireframes, high-fidelity mockups, and interactive prototypes to enhance usability, visual consistency, and conversion.</li>
-          <li>Ensured responsive design across web and mobile interfaces aligned with business goals and accessibility standards.</li>
-        </ul>
-        <span class="w-link">Read the case study <span class="arrow">&#8594;</span></span>
-      </a>
-
+<!-- 7 · HOW I WORK -->
+<section class="process torn" id="process" aria-label="How I work">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.2 7.1L21 5l-3.6 6.5L24 14l-7.1 1.3L19 22l-7-3.9L5 22l2.1-6.7L0 14l6.6-2.5L3 5l6.8 3.1z"></path></svg>How I work</p>
+      <h2>First understand the problem. Then <span class="hl b-mint" id="procHl">design the answer.</span></h2>
+      <p>From the first question to developer collaboration and refinement.</p>
+    </div>
+    <div class="proc-line" id="procLine">
+      <svg id="procSvg" aria-hidden="true"><path class="ln-bg" id="procBg"></path><path id="procFg" stroke="#13233A"></path></svg>
     </div>
   </div>
 </section>
 
-<!-- ============ EXPERIENCE ============ -->
-<section class="section" id="experience">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="label">Experience</span>
-      <h2 class="display-2">Where the work happened.</h2>
-    </div>
+<!-- 8 · OFF THE CLOCK -->
+<section class="life atelier-life" id="life" aria-label="Beyond the pixels"><div class="wrap atelier-grid"><div class="atelier-copy"><p class="kicker">A little about me</p><h2>Beyond<br>the pixels.</h2><p>Design, for me, is a way to make complexity feel simple, useful, and human. Here are a few things that shape how I think and work.</p></div><div class="atelier-index"><article><small>ALWAYS CURIOUS</small><h3>Learning,<br>always.</h3><p>From a Computer Science foundation to UX/UI design, I keep exploring how people experience technology.</p></article><article><small>THE BIGGER PICTURE</small><h3>Product<br>thinking.</h3><p>Understanding real problems, user needs, and the purpose behind every screen.</p></article><article><small>CONNECTING THE DOTS</small><h3>Design<br>systems.</h3><p>Clear patterns and reusable components for consistent, scalable experiences.</p></article><article><small>EXPLORING WHAT’S NEXT</small><h3>AI-assisted<br>exploration.</h3><p>Using AI as a creative partner to explore ideas and iterate thoughtfully.</p></article><article><small>HOME BASE</small><h3>Based in<br>Chennai.</h3><p>Designing enterprise workflows, web applications, and mobile experiences.</p></article></div></div></section>
 
-    <div class="exp-timeline reveal">
-      <div class="exp-timeline-item">
-        <span class="exp-dot"></span>
-        <div class="exp-header">
-          <h3 class="exp-role">UX/UI Designer</h3>
-          <span class="exp-company">Revolite Infotech</span>
-          <span class="exp-dates">Feb 2025 — Present</span>
-        </div>
-        <ul class="exp-points">
-          <li>Delivered end-to-end UI/UX for web and mobile apps across warehouse, fintech, and enterprise SaaS — unifying fragmented tools into role-specific platforms.</li>
-          <li>Built reusable, component-based design systems to standardize interactions and speed up developer handoff.</li>
-          <li>Used AI tools and prompt engineering, including Claude and Figma Make, to accelerate ideation and creative concept generation — then validated flows with research and usability testing before handoff, working closely with PMs and developers in Agile sprints.</li>
-        </ul>
-      </div>
+<!-- 9 · NOTES WALL -->
 
-      <div class="exp-timeline-item">
-        <span class="exp-dot"></span>
-        <div class="exp-header">
-          <h3 class="exp-role">Junior UX/UI Designer</h3>
-          <span class="exp-company">Ishop Software Solutions</span>
-          <span class="exp-dates">Aug 2024 — Dec 2024</span>
-        </div>
-        <ul class="exp-points">
-          <li>Delivered wireframes, prototypes, and high-fidelity designs directly adopted by developers, reducing revisions through clear design specifications.</li>
-          <li>Created UI documentation and design guidelines that improved consistency across subsequent product iterations.</li>
-        </ul>
-      </div>
 
-      <div class="exp-timeline-item">
-        <span class="exp-dot"></span>
-        <div class="exp-header">
-          <h3 class="exp-role">UI/UX Design Intern</h3>
-          <span class="exp-company">Naiplus Solutions Pvt Ltd · Ahmedabad, India</span>
-          <span class="exp-dates">June 2024 — August 2024</span>
-        </div>
-        <ul class="exp-points">
-          <li>Assisted the design team with wireframes, UI screens, and prototypes for ongoing client projects, incorporating feedback across multiple review rounds.</li>
-          <li>Supported basic user research and competitive analysis to help inform early design decisions before moving into high-fidelity screens.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 10 · SAY HI -->
+<section class="hello atelier-contact" id="hello" aria-label="Contact">
+  <img class="skyimg" src="assets/atelier-contact.webp" alt="">
+  <div class="wrap inner">
+    <h2>Let’s design <span class="rq" id="helloRq">what’s next.</span></h2>
+    <p>Open to UX/UI and Product Design opportunities, collaborations and conversations.</p>
+    <div class="atelier-contact-links" id="keysMat"><a class="atelier-contact-link key" data-k="m" href="mailto:sanmathi972@gmail.com"><span id="mailText">sanmathi972@gmail.com</span><b>Email me ↗</b></a><button id="copy" class="atelier-copy-email" aria-label="Copy email" title="Copy email">Copy email</button><a class="atelier-contact-link key" data-k="t" href="tel:+918248062108"><span>+91 82480 62108</span><b>Call me ↗</b></a><a class="atelier-contact-link key" data-k="r" href="resume.pdf" target="_blank" rel="noopener"><span>My experience, on a page.</span><b>Resume ↓</b></a></div></div>
+  <div id="cloudsFoot" aria-hidden="true"></div>
+<footer class="sr-footer">© 2026 Sanmathi Ramesh · Chennai, India · <a href="tel:+918248062108">+91 82480 62108</a></footer></section>
+</main>
 
-<!-- ============ CONTACT / FOOTER ============ -->
-<footer class="site-footer" id="contact">
-  <div class="wrap contact-section reveal">
-    <span class="hero-tag" style="margin-bottom:28px;"><span class="dot"></span> Available for new opportunities</span>
-    <h2 class="display-1 contact-headline">Let's build something that makes sense.</h2>
-    <p class="body-lg" style="margin:20px auto 0;">Open to UX/UI roles and freelance collaborations across enterprise SaaS, fintech, and AI-powered products.</p>
-
-    <div class="contact-methods">
-      <a href="mailto:sanmathi972@gmail.com" class="contact-method-card">
-        <span class="cm-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-            <path d="M3 7l9 6 9-6"></path>
-          </svg>
-        </span>
-        <span class="cm-label">Email</span>
-        <span class="cm-value">sanmathi972@gmail.com</span>
-      </a>
-      <a href="tel:+918248062108" class="contact-method-card">
-        <span class="cm-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
-          </svg>
-        </span>
-        <span class="cm-label">Phone</span>
-        <span class="cm-value">+91 82480 62108</span>
-      </a>
-      <div class="contact-method-card" style="cursor:default;">
-        <span class="cm-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </span>
-        <span class="cm-label">Location</span>
-        <span class="cm-value">Chennai, Tamil Nadu, India</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap footer-top" style="margin-top:70px;">
-    <span class="nav-name">Sanmathi Ramesh</span>
-    <div class="footer-links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <span>UX/UI Designer</span>
-    <span>© 2026 Sanmathi Ramesh</span>
-  </div>
-</footer>
-
-<script>
-// ============================================================
-// Shared site behavior: nav, scroll reveal, cursor glow,
-// magnetic buttons, card spotlight
-// ============================================================
-
-(function(){
-  // Scroll progress bar
-  var progressBar = document.createElement('div');
-  progressBar.className = 'scroll-progress';
-  document.body.appendChild(progressBar);
-  window.addEventListener('scroll', function(){
-    var h = document.documentElement;
-    var scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    progressBar.style.width = scrolled + '%';
-  }, { passive:true });
-
-  // Theme toggle: light/dark, persisted where possible
-  var root = document.documentElement;
-  var stored = null;
-  try { stored = localStorage.getItem('sr-theme'); } catch(e){}
-  if(stored === 'light' || stored === 'dark'){
-    root.setAttribute('data-theme', stored);
-  }
-  document.querySelectorAll('.theme-toggle').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      var next = current === 'light' ? 'dark' : 'light';
-      if(next === 'dark'){ root.removeAttribute('data-theme'); }
-      else { root.setAttribute('data-theme', 'light'); }
-      try { localStorage.setItem('sr-theme', next); } catch(e){}
-    });
-  });
-
-  // Nav: hide on scroll down, show on scroll up, background after threshold
-  var nav = document.querySelector('.site-nav, .case-nav');
-  if(nav){
-    var lastY = window.scrollY;
-    var ticking = false;
-    window.addEventListener('scroll', function(){
-      if(!ticking){
-        window.requestAnimationFrame(function(){
-          var y = window.scrollY;
-          nav.classList.toggle('is-scrolled', y > 40);
-          if(y > lastY && y > 160){
-            nav.classList.add('nav-hidden');
-          } else {
-            nav.classList.remove('nav-hidden');
-          }
-          lastY = y;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive:true });
-  }
-
-  // Reveal on scroll (with safety net so content is never stuck hidden)
-  var revealEls = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window && revealEls.length){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function(el){ io.observe(el); });
-    window.setTimeout(function(){
-      revealEls.forEach(function(el){ el.classList.add('is-visible'); });
-    }, 3000);
-  } else {
-    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
-  }
-
-  // Cursor glow (desktop / fine-pointer only)
-  if(window.matchMedia('(pointer: fine)').matches){
-    var glow = document.createElement('div');
-    glow.className = 'cursor-glow';
-    document.body.appendChild(glow);
-    var shown = false;
-    window.addEventListener('mousemove', function(e){
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
-      if(!shown){ glow.classList.add('is-active'); shown = true; }
-    }, { passive:true });
-  }
-
-  // Magnetic buttons
-  document.querySelectorAll('.btn, .btn-glass').forEach(function(btn){
-    btn.addEventListener('mousemove', function(e){
-      var r = btn.getBoundingClientRect();
-      var x = e.clientX - r.left - r.width/2;
-      var y = e.clientY - r.top - r.height/2;
-      btn.style.transform = 'translate(' + (x*0.22) + 'px,' + (y*0.32) + 'px)';
-    });
-    btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
-  });
-
-  // Card spotlight (follows cursor inside card, drives --mx/--my for radial glow)
-  document.querySelectorAll('.work-card, .decision-card, .exp-item, .about-facts > div, .contact-method-card, .about-stat-card').forEach(function(card){
-    card.addEventListener('mousemove', function(e){
-      var r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-
-  // Number count-up animation for stat cards (runs once, when scrolled into view)
-  var countEls = document.querySelectorAll('[data-count-to]');
-  function animateCount(el){
-    var target = parseInt(el.getAttribute('data-count-to'), 10);
-    var suffix = el.getAttribute('data-suffix') || '';
-    var duration = 1100;
-    var startTime = null;
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      el.textContent = target + suffix;
-      return;
-    }
-    el.textContent = '0' + suffix;
-    function step(ts){
-      if(!startTime) startTime = ts;
-      var progress = Math.min((ts - startTime) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var current = Math.round(eased * target);
-      el.textContent = current + suffix;
-      if(progress < 1){ window.requestAnimationFrame(step); }
-      else { el.textContent = target + suffix; }
-    }
-    window.requestAnimationFrame(step);
-  }
-  if('IntersectionObserver' in window && countEls.length){
-    var countIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          animateCount(entry.target);
-          countIO.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.4 });
-    countEls.forEach(function(el){ countIO.observe(el); });
-  }
-})();
-
-</script>
-</body>
-</html>
+<dialog id="resumeNotice"><form method="dialog"><button class="pill">Close</button></form></dialog><script src="vendor/lenis.min.js"></script><script src="script.js"></script></body></html>
